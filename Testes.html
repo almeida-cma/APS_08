@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🏆 Ágil Challenge | Avaliação de Metodologias Ágeis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0f1c 0%, #141b2b 100%);
+            color: #e2e8f0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header da prova */
+        .header-prova {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #facc1540;
+            text-align: center;
+        }
+        .header-prova h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #facc15, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .pontuacao-total {
+            display: inline-block;
+            background: #facc15;
+            color: #0f172a;
+            padding: 0.3rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        /* Formulário equipe */
+        .team-card {
+            background: #1e293b;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid #facc1520;
+        }
+        .team-card h2 {
+            color: #facc15;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-row input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 2rem;
+            border: none;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+        }
+        .form-row input:focus {
+            outline: none;
+            border-color: #facc15;
+        }
+
+        /* Questões */
+        .questao {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #334155;
+            transition: 0.2s;
+        }
+        .questao:hover {
+            border-color: #facc1540;
+        }
+        .questao-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .questao-num {
+            background: #facc15;
+            color: #0f172a;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .questao-tipo {
+            background: #334155;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .questao-texto {
+            font-weight: 500;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .alternativas {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-left: 1rem;
+        }
+        .alternativa {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+        }
+        .alternativa input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+        .vf-options {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .vf-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .forca-input {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .forca-letter {
+            width: 55px;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: #0f172a;
+            border: 2px solid #facc15;
+            border-radius: 0.8rem;
+            color: white;
+            text-transform: uppercase;
+        }
+        .dica {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+        .campo-lacuna {
+            background: #0f172a;
+            border: 1px solid #facc15;
+            padding: 0.5rem 1rem;
+            border-radius: 0.8rem;
+            color: white;
+            width: 250px;
+            margin: 0 0.5rem;
+        }
+
+        /* Botões */
+        .botoes {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 3rem;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: #facc15;
+            color: #0f172a;
+        }
+        .btn-primary:hover {
+            background: #eab308;
+            transform: scale(1.02);
+        }
+        .btn-pdf {
+            background: #dc2626;
+            color: white;
+        }
+        .btn-pdf:hover {
+            background: #b91c1c;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            overflow: auto;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            margin: 3% auto;
+            padding: 2rem;
+            border-radius: 2rem;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid #facc15;
+            position: relative;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #facc15;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .close-modal {
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .close-modal:hover {
+            background: #b91c1c;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #334155;
+        }
+        .btn-print {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+        .btn-print:hover {
+            background: #0ea5e9;
+        }
+        
+        /* Estilo para impressão/PDF */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0.5cm;
+            }
+            .team-card, .header-prova {
+                background: #f8fafc;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            .questao {
+                background: white;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+            .btn, .botoes, .modal-buttons, .close-modal {
+                display: none !important;
+            }
+            .modal {
+                display: none !important;
+            }
+            .forca-letter {
+                border: 1px solid #000;
+                background: #f0f0f0;
+                color: black;
+            }
+            .campo-lacuna {
+                border: 1px solid #000;
+                background: #f0f0f0;
+                color: black;
+            }
+            h1, h2, h3, .questao-texto {
+                color: black !important;
+            }
+            .pontuacao-total, .questao-num {
+                background: #facc15;
+                color: black;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .forca-letter { width: 40px; font-size: 0.9rem; padding: 0.5rem; }
+            .modal-content { margin: 5% auto; width: 95%; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="provaContent">
+    <!-- CABEÇALHO -->
+    <div class="header-prova">
+        <h1><i class="fas fa-trophy"></i> Ágil Challenge</h1>
+        <p>Avaliação de Metodologias Ágeis | 20 questões | 100 pontos</p>
+        <div class="pontuacao-total">🏆 Vale 100 pontos</div>
+    </div>
+
+    <!-- INFORMAÇÕES DA EQUIPE -->
+    <div class="team-card">
+        <h2><i class="fas fa-users"></i> Dados da Equipe</h2>
+        <div class="form-row">
+            <input type="text" id="teamName" placeholder="Nome da equipe (ex: Os Devs Ágeis)">
+            <input type="text" id="members" placeholder="Membros (ex: Ana, João, Maria, Pedro)">
+        </div>
+        <div class="dica"><i class="fas fa-info-circle"></i> Preencha com os nomes de todos os integrantes. Essas informações vão no PDF.</div>
+    </div>
+
+    <!-- ==================== QUESTÕES ==================== -->
+
+    <!-- MÚLTIPLA ESCOLHA (Q1 a Q10) 4 pontos cada = 40pts -->
+    <h2 style="margin: 1rem 0 0.5rem;"><i class="fas fa-list-ul"></i> Parte 1 - Múltipla Escolha (4 pontos cada = 40 pts)</h2>
+
+    <div id="q1" class="questao" data-tipo="mc" data-gabarito="d" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">1</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">Qual dos valores abaixo faz parte do Manifesto Ágil?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q1" value="a"> a) Processos e ferramentas acima de indivíduos</label>
+            <label class="alternativa"><input type="radio" name="q1" value="b"> b) Documentação abrangente acima de software funcionando</label>
+            <label class="alternativa"><input type="radio" name="q1" value="c"> c) Seguir o plano acima de responder a mudanças</label>
+            <label class="alternativa"><input type="radio" name="q1" value="d"> d) Indivíduos e interações mais que processos e ferramentas</label>
+        </div>
+    </div>
+
+    <div id="q2" class="questao" data-tipo="mc" data-gabarito="c" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">2</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">No Scrum, qual é o papel responsável por priorizar o Product Backlog?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q2" value="a"> a) Scrum Master</label>
+            <label class="alternativa"><input type="radio" name="q2" value="b"> b) Time de Desenvolvimento</label>
+            <label class="alternativa"><input type="radio" name="q2" value="c"> c) Product Owner</label>
+            <label class="alternativa"><input type="radio" name="q2" value="d"> d) Cliente</label>
+        </div>
+    </div>
+
+    <div id="q3" class="questao" data-tipo="mc" data-gabarito="b" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">3</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">O que significa WIP (Work In Progress) no Kanban?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q3" value="a"> a) Work In Priority - trabalho prioritário</label>
+            <label class="alternativa"><input type="radio" name="q3" value="b"> b) Limite de tarefas em andamento simultâneo</label>
+            <label class="alternativa"><input type="radio" name="q3" value="c"> c) Workflow Improvement Process</label>
+            <label class="alternativa"><input type="radio" name="q3" value="d"> d) Work In Planning - planejamento</label>
+        </div>
+    </div>
+
+    <div id="q4" class="questao" data-tipo="mc" data-gabarito="a" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">4</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">Qual prática é característica do Extreme Programming (XP)?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q4" value="a"> a) Programação em par (Pair Programming)</label>
+            <label class="alternativa"><input type="radio" name="q4" value="b"> b) Sprints fixas de 2 semanas</label>
+            <label class="alternativa"><input type="radio" name="q4" value="c"> c) Quadro Kanban com WIP</label>
+            <label class="alternativa"><input type="radio" name="q4" value="d"> d) Product Owner define tudo</label>
+        </div>
+    </div>
+
+    <div id="q5" class="questao" data-tipo="mc" data-gabarito="c" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">5</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">No modelo Cascata (tradicional), as mudanças de requisito são:</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q5" value="a"> a) Fáceis e baratas a qualquer momento</label>
+            <label class="alternativa"><input type="radio" name="q5" value="b"> b) Incentivadas pelo método</label>
+            <label class="alternativa"><input type="radio" name="q5" value="c"> c) Difíceis e caras após as fases iniciais</label>
+            <label class="alternativa"><input type="radio" name="q5" value="d"> d) O cliente pode mudar todos os dias sem custo</label>
+        </div>
+    </div>
+
+    <div id="q6" class="questao" data-tipo="mc" data-gabarito="b" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">6</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">O que é o MVP (Minimum Viable Product) no contexto ágil?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q6" value="a"> a) A versão final e completa do produto</label>
+            <label class="alternativa"><input type="radio" name="q6" value="b"> b) A versão mais simples que resolve o problema do cliente</label>
+            <label class="alternativa"><input type="radio" name="q6" value="c"> c) Um documento detalhado de requisitos</label>
+            <label class="alternativa"><input type="radio" name="q6" value="d"> d) O backlog priorizado</label>
+        </div>
+    </div>
+
+    <div id="q7" class="questao" data-tipo="mc" data-gabarito="a" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">7</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">Qual evento do Scrum serve para o time refletir sobre melhorias no processo?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q7" value="a"> a) Sprint Retrospective</label>
+            <label class="alternativa"><input type="radio" name="q7" value="b"> b) Sprint Review</label>
+            <label class="alternativa"><input type="radio" name="q7" value="c"> c) Daily Scrum</label>
+            <label class="alternativa"><input type="radio" name="q7" value="d"> d) Sprint Planning</label>
+        </div>
+    </div>
+
+    <div id="q8" class="questao" data-tipo="mc" data-gabarito="d" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">8</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">Qual framework é usado para escalar metodologias ágeis em grandes organizações?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q8" value="a"> a) Scrum</label>
+            <label class="alternativa"><input type="radio" name="q8" value="b"> b) XP</label>
+            <label class="alternativa"><input type="radio" name="q8" value="c"> c) Kanban</label>
+            <label class="alternativa"><input type="radio" name="q8" value="d"> d) SAFe</label>
+        </div>
+    </div>
+
+    <div id="q9" class="questao" data-tipo="mc" data-gabarito="c" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">9</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">Na filosofia Lean, "eliminar desperdícios" significa:</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q9" value="a"> a) Cortar gastos com funcionários</label>
+            <label class="alternativa"><input type="radio" name="q9" value="b"> b) Não documentar nada</label>
+            <label class="alternativa"><input type="radio" name="q9" value="c"> c) Remover atividades que não agregam valor ao cliente</label>
+            <label class="alternativa"><input type="radio" name="q9" value="d"> d) Trabalhar mais rápido sem qualidade</label>
+        </div>
+    </div>
+
+    <div id="q10" class="questao" data-tipo="mc" data-gabarito="b" data-pontos="4">
+        <div class="questao-header"><span class="questao-num">10</span><span class="questao-tipo">Múltipla escolha</span></div>
+        <div class="questao-texto">Qual a duração típica de uma Sprint no Scrum?</div>
+        <div class="alternativas">
+            <label class="alternativa"><input type="radio" name="q10" value="a"> a) 1 dia</label>
+            <label class="alternativa"><input type="radio" name="q10" value="b"> b) 2 a 4 semanas</label>
+            <label class="alternativa"><input type="radio" name="q10" value="c"> c) 6 meses</label>
+            <label class="alternativa"><input type="radio" name="q10" value="d"> d) 1 ano</label>
+        </div>
+    </div>
+
+    <!-- V ou F (Q11 a Q15) 3 pontos cada = 15pts -->
+    <h2 style="margin: 2rem 0 0.5rem;"><i class="fas fa-check-circle"></i> Parte 2 - Verdadeiro ou Falso (3 pontos cada = 15 pts)</h2>
+
+    <div id="q11" class="questao" data-tipo="vf" data-gabarito="f" data-pontos="3">
+        <div class="questao-header"><span class="questao-num">11</span><span class="questao-tipo">Verdadeiro ou Falso</span></div>
+        <div class="questao-texto">No Kanban, é obrigatório ter Sprints de 2 semanas.</div>
+        <div class="vf-options">
+            <label><input type="radio" name="q11" value="v"> Verdadeiro</label>
+            <label><input type="radio" name="q11" value="f"> Falso</label>
+        </div>
+    </div>
+
+    <div id="q12" class="questao" data-tipo="vf" data-gabarito="v" data-pontos="3">
+        <div class="questao-header"><span class="questao-num">12</span><span class="questao-tipo">Verdadeiro ou Falso</span></div>
+        <div class="questao-texto">O Daily Scrum é uma reunião diária de no máximo 15 minutos.</div>
+        <div class="vf-options">
+            <label><input type="radio" name="q12" value="v"> Verdadeiro</label>
+            <label><input type="radio" name="q12" value="f"> Falso</label>
+        </div>
+    </div>
+
+    <div id="q13" class="questao" data-tipo="vf" data-gabarito="f" data-pontos="3">
+        <div class="questao-header"><span class="questao-num">13</span><span class="questao-tipo">Verdadeiro ou Falso</span></div>
+        <div class="questao-texto">O modelo Cascata é o mais indicado para projetos com requisitos incertos que podem mudar com frequência.</div>
+        <div class="vf-options">
+            <label><input type="radio" name="q13" value="v"> Verdadeiro</label>
+            <label><input type="radio" name="q13" value="f"> Falso</label>
+        </div>
+    </div>
+
+    <div id="q14" class="questao" data-tipo="vf" data-gabarito="v" data-pontos="3">
+        <div class="questao-header"><span class="questao-num">14</span><span class="questao-tipo">Verdadeiro ou Falso</span></div>
+        <div class="questao-texto">A programação em par (Pair Programming) é uma prática do XP (Extreme Programming).</div>
+        <div class="vf-options">
+            <label><input type="radio" name="q14" value="v"> Verdadeiro</label>
+            <label><input type="radio" name="q14" value="f"> Falso</label>
+        </div>
+    </div>
+
+    <div id="q15" class="questao" data-tipo="vf" data-gabarito="f" data-pontos="3">
+        <div class="questao-header"><span class="questao-num">15</span><span class="questao-tipo">Verdadeiro ou Falso</span></div>
+        <div class="questao-texto">O Product Owner é responsável por escrever todo o código do projeto.</div>
+        <div class="vf-options">
+            <label><input type="radio" name="q15" value="v"> Verdadeiro</label>
+            <label><input type="radio" name="q15" value="f"> Falso</label>
+        </div>
+    </div>
+
+    <!-- FORCA (Q16 a Q18) 5 pontos cada = 15pts -->
+    <h2 style="margin: 2rem 0 0.5rem;"><i class="fas fa-gavel"></i> Parte 3 - Descubra o termo (5 pontos cada = 15 pts)</h2>
+
+    <div id="q16" class="questao" data-tipo="forca" data-gabarito="SPRINT" data-pontos="5">
+        <div class="questao-header"><span class="questao-num">16</span><span class="questao-tipo">🔨 Forca</span></div>
+        <div class="questao-texto">Nome dado ao ciclo de desenvolvimento no Scrum, geralmente dura de 1 a 4 semanas.</div>
+        <div class="forca-input" id="forca16">
+            <input type="text" class="forca-letter" maxlength="1" data-idx="0"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="1"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="2"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="3"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="4"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="5"> 
+        </div>
+        <div class="dica">Dica: 6 letras. Começa com S, termina com T.</div>
+    </div>
+
+    <div id="q17" class="questao" data-tipo="forca" data-gabarito="KANBAN" data-pontos="5">
+        <div class="questao-header"><span class="questao-num">17</span><span class="questao-tipo">🔨 Forca</span></div>
+        <div class="questao-texto">Metodologia ágil que utiliza um quadro visual com colunas e limites de WIP.</div>
+        <div class="forca-input" id="forca17">
+            <input type="text" class="forca-letter" maxlength="1" data-idx="0"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="1"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="2"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="3"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="4"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="5"> 
+        </div>
+        <div class="dica">Dica: 6 letras, origem japonesa, significa "cartão visual".</div>
+    </div>
+
+    <div id="q18" class="questao" data-tipo="forca" data-gabarito="BACKLOG" data-pontos="5">
+        <div class="questao-header"><span class="questao-num">18</span><span class="questao-tipo">🔨 Forca</span></div>
+        <div class="questao-texto">Lista priorizada de tudo que o produto precisa ter, gerenciada pelo Product Owner.</div>
+        <div class="forca-input" id="forca18">
+            <input type="text" class="forca-letter" maxlength="1" data-idx="0"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="1"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="2"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="3"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="4"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="5"> 
+            <input type="text" class="forca-letter" maxlength="1" data-idx="6"> 
+        </div>
+        <div class="dica">Dica: 7 letras. Começa com B, termina com G.</div>
+    </div>
+
+    <!-- LACUNAS (Q19 a Q20) 15 pontos cada = 30pts (total 100) -->
+    <h2 style="margin: 2rem 0 0.5rem;"><i class="fas fa-th"></i> Parte 4 - Complete as lacunas (15 pontos cada = 30 pts)</h2>
+
+    <div id="q19" class="questao" data-tipo="cruzada" data-gabarito="PRODUCT OWNER" data-pontos="15">
+        <div class="questao-header"><span class="questao-num">19</span><span class="questao-tipo">📝 Complete a lacuna</span></div>
+        <div class="questao-texto">No Scrum, o responsável por representar o cliente e priorizar o Product Backlog é o <input type="text" id="cruzada19" class="campo-lacuna" placeholder="Digite aqui">.</div>
+        <div class="dica">Dica: Duas palavras em inglês. (ex: ______ ______)</div>
+    </div>
+
+    <div id="q20" class="questao" data-tipo="cruzada" data-gabarito="RETROSPECTIVA" data-pontos="15">
+        <div class="questao-header"><span class="questao-num">20</span><span class="questao-tipo">📝 Complete a lacuna</span></div>
+        <div class="questao-texto">A cerimônia do Scrum que acontece após a Sprint Review e serve para o time melhorar seu processo é a <input type="text" id="cruzada20" class="campo-lacuna" placeholder="Digite aqui">.</div>
+        <div class="dica">Dica: 13 letras, começa com R, termina com A.</div>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="botoes">
+        <button class="btn btn-primary" id="btnCorrigir"><i class="fas fa-check-circle"></i> Corrigir Prova</button>
+    </div>
+
+    <footer>
+        <i class="fas fa-graduation-cap"></i> Ágil Challenge - Baseado no conteúdo de Metodologias Ágeis | Boa sorte, equipe!
+    </footer>
+</div>
+
+<!-- MODAL DE RESULTADO -->
+<div id="resultadoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-chart-line"></i> Resultado da Avaliação</h2>
+            <button class="close-modal" onclick="fecharModal()"><i class="fas fa-times"></i> Fechar</button>
+        </div>
+        <div id="modalResultadoBody"></div>
+        <div class="modal-buttons">
+            <button class="btn btn-print" onclick="imprimirPDF()"><i class="fas fa-print"></i> Salvar como PDF / Imprimir</button>
+            <button class="btn btn-primary" onclick="fecharModal()"><i class="fas fa-undo"></i> Voltar à prova</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Função para pegar resposta das questões
+    function getResposta(questaoDiv) {
+        const tipo = questaoDiv.dataset.tipo;
+        const id = questaoDiv.id;
+        if (tipo === 'mc') {
+            const selected = questaoDiv.querySelector(`input[name="${id}"]:checked`);
+            return selected ? selected.value : null;
+        } else if (tipo === 'vf') {
+            const selected = questaoDiv.querySelector(`input[name="${id}"]:checked`);
+            return selected ? selected.value : null;
+        } else if (tipo === 'forca') {
+            const inputs = questaoDiv.querySelectorAll('.forca-letter');
+            let palavra = '';
+            inputs.forEach(inp => { palavra += inp.value.toUpperCase(); });
+            return palavra;
+        } else if (tipo === 'cruzada') {
+            const input = questaoDiv.querySelector('.campo-lacuna');
+            return input ? input.value.trim().toUpperCase() : '';
+        }
+        return null;
+    }
+
+    let resultadoGlobal = null;
+
+    // Corrigir prova
+    document.getElementById('btnCorrigir').addEventListener('click', () => {
+        const teamName = document.getElementById('teamName').value.trim();
+        const members = document.getElementById('members').value.trim();
+        if (!teamName || !members) {
+            alert('⚠️ Preencha o nome da equipe e os membros antes de corrigir!');
+            return;
+        }
+
+        let totalPontos = 0;
+        let questoes = {};
+        const questoesDiv = document.querySelectorAll('.questao');
+        
+        questoesDiv.forEach(q => {
+            const id = q.id;
+            const tipo = q.dataset.tipo;
+            const gabarito = q.dataset.gabarito;
+            const pontos = parseInt(q.dataset.pontos);
+            const resposta = getResposta(q);
+            let correta = false;
+            
+            if (resposta) {
+                if (tipo === 'forca') {
+                    correta = (resposta === gabarito);
+                } else if (tipo === 'cruzada') {
+                    correta = (resposta === gabarito);
+                } else {
+                    correta = (resposta === gabarito);
+                }
+            }
+            
+            if (correta) totalPontos += pontos;
+            questoes[id] = { resposta: resposta || '(não respondida)', correta, pontos, gabarito };
+        });
+        
+        resultadoGlobal = { teamName, members, totalPontos, questoes };
+        
+        // Gerar conteúdo do modal
+        const modalBody = document.getElementById('modalResultadoBody');
+        const conceito = totalPontos >= 70 ? 'APROVADO! 🎉' : (totalPontos >= 50 ? 'RECUPERAÇÃO 📚' : 'REPROVADO 📖');
+        
+        modalBody.innerHTML = `
+            <div style="background:#0f172a; padding:20px; border-radius:12px; margin-bottom:20px;">
+                <p style="margin:8px 0;"><strong style="color:#facc15;">🏷️ Equipe:</strong> ${teamName}</p>
+                <p style="margin:8px 0;"><strong style="color:#facc15;">👥 Membros:</strong> ${members}</p>
+                <p style="margin:8px 0;"><strong style="color:#facc15;">⭐ Pontuação total:</strong> ${totalPontos} / 100 pontos</p>
+                <div style="background:#334155; height:10px; border-radius:5px; margin:15px 0;"><div style="width:${totalPontos}%; background:#facc15; height:10px; border-radius:5px;"></div></div>
+                <p style="margin:8px 0; font-size:1.2rem;"><strong>📌 Conceito:</strong> ${conceito}</p>
+            </div>
+            
+            <h3 style="color:#facc15; border-left:4px solid #facc15; padding-left:12px; margin:20px 0 15px;">📋 Gabarito e Respostas da Equipe</h3>
+            
+            <div style="overflow-x: auto;">
+                <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                    <thead>
+                        <tr style="background:#facc15; color:#0f172a;">
+                            <th style="padding:10px; border:1px solid #334155; text-align:left;">Questão</th>
+                            <th style="padding:10px; border:1px solid #334155; text-align:left;">Resposta</th>
+                            <th style="padding:10px; border:1px solid #334155; text-align:left;">Gabarito</th>
+                            <th style="padding:10px; border:1px solid #334155; text-align:center;">Status</th>
+                            <th style="padding:10px; border:1px solid #334155; text-align:center;">Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(questoes).map(([id, data]) => `
+                            <tr style="border-bottom:1px solid #334155;">
+                                <td style="padding:10px; border:1px solid #334155;"><strong>${id.toUpperCase()}</strong></td>
+                                <td style="padding:10px; border:1px solid #334155;">${data.resposta}</td>
+                                <td style="padding:10px; border:1px solid #334155;">${data.gabarito}</td>
+                                <td style="padding:10px; border:1px solid #334155; text-align:center;">${data.correta ? '✅' : '❌'}</td>
+                                <td style="padding:10px; border:1px solid #334155; text-align:center;">${data.correta ? data.pontos : 0}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top:20px; padding-top:15px; border-top:1px solid #334155; font-size:11px; text-align:center; color:#94a3b8;">
+                <p>Ágil Academy - Avaliação de Metodologias Ágeis | Total ${totalPontos}/100 pontos</p>
+                <p>Documento gerado em ${new Date().toLocaleString('pt-BR')}</p>
+            </div>
+        `;
+        
+        // Mostrar modal
+        document.getElementById('resultadoModal').style.display = 'block';
+    });
+    
+    function fecharModal() {
+        document.getElementById('resultadoModal').style.display = 'none';
+    }
+    
+    function imprimirPDF() {
+        if (!resultadoGlobal) return;
+        
+        // Criar conteúdo para impressão
+        const printContent = document.createElement('div');
+        printContent.innerHTML = document.getElementById('modalResultadoBody').innerHTML;
+        
+        // Estilizar para impressão
+        const style = document.createElement('style');
+        style.textContent = `
+            * { font-family: Arial, Helvetica, sans-serif; }
+            body { padding: 1cm; background: white; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background: #facc15; color: black; }
+            .status-center { text-align: center; }
+        `;
+        
+        const titulo = document.createElement('div');
+        titulo.innerHTML = `
+            <div style="text-align:center; border-bottom:2px solid #facc15; padding-bottom:10px; margin-bottom:20px;">
+                <h1>🏆 Ágil Challenge</h1>
+                <h2>Resultado da Avaliação - Metodologias Ágeis</h2>
+            </div>
+        `;
+        
+        const finalDoc = document.createElement('div');
+        finalDoc.appendChild(titulo);
+        finalDoc.appendChild(printContent);
+        finalDoc.appendChild(style);
+        
+        // Abrir janela de impressão
+        const win = window.open('', '_blank');
+        win.document.write(finalDoc.innerHTML);
+        win.document.close();
+        win.print();
+    }
+    
+    // Fechar modal ao clicar fora
+    window.onclick = function(event) {
+        const modal = document.getElementById('resultadoModal');
+        if (event.target === modal) {
+            fecharModal();
+        }
+    }
+    
+    // Auto-foco nos inputs forca (navegação)
+    document.querySelectorAll('.forca-letter').forEach((input, idx, arr) => {
+        input.addEventListener('input', (e) => {
+            if (e.target.value.length === 1 && idx < arr.length - 1) {
+                arr[idx+1].focus();
+            }
+        });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && e.target.value === '' && idx > 0) {
+                arr[idx-1].focus();
+                arr[idx-1].value = '';
+            }
+        });
+    });
+</script>
+</body>
+</html>

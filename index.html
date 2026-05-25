@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📚 Metodologias Ágeis | Central de Atividades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0f1c 0%, #141b2b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid #facc1540;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #facc15, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .header p {
+            margin-top: 0.5rem;
+            color: #94a3b8;
+        }
+        .badge-info {
+            display: inline-block;
+            background: #facc1520;
+            color: #facc15;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        /* Cards de atividades */
+        .atividades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #facc1560;
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: #facc1520;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .card h2 {
+            font-size: 1.3rem;
+            color: #facc15;
+        }
+        .card p {
+            color: #cbd5e6;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #facc15;
+            color: #0f172a;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+        .card-link:hover {
+            background: #eab308;
+            transform: scale(1.02);
+        }
+        .card-link i {
+            font-size: 0.9rem;
+        }
+        .entrega-badge {
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            border-top: 1px solid #334155;
+            padding-top: 0.8rem;
+        }
+
+        /* Formulário da Equipe */
+        .team-section {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 2px solid #facc1520;
+        }
+        .team-section h2 {
+            color: #facc15;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-row input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 2rem;
+            border: none;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+            font-size: 1rem;
+        }
+        .form-row input:focus {
+            outline: none;
+            border-color: #facc15;
+        }
+        .btn-salvar {
+            background: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.8rem 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-salvar:hover {
+            background: #16a34a;
+            transform: scale(1.02);
+        }
+        .equipe-info {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #22c55e;
+        }
+
+        /* Cards Repositório */
+        .repo-section {
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: center;
+            border: 1px dashed #facc1560;
+        }
+        .repo-section h3 {
+            color: #facc15;
+            margin-bottom: 0.5rem;
+        }
+        .repo-link {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .repo-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            color: #64748b;
+            font-size: 0.8rem;
+            border-top: 1px solid #334155;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .header h1 { font-size: 1.8rem; }
+            .atividades-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <h1><i class="fas fa-leaf"></i> Metodologias Ágeis</h1>
+        <p>Central de atividades, avaliações e entregas | Sprint Ágil</p>
+        <div class="badge-info"><i class="fas fa-info-circle"></i> Todas as atividades abrem em nova aba</div>
+    </div>
+
+    <!-- FORMULÁRIO DA EQUIPE -->
+    <div class="team-section">
+        <h2><i class="fas fa-users"></i> Identificação da Equipe</h2>
+        <p>Preencha os dados da sua equipe antes de iniciar as atividades. Estas informações serão usadas em todas as entregas.</p>
+        <div class="form-row">
+            <input type="text" id="teamName" placeholder="Nome da equipe (ex: Os Devs Ágeis)">
+            <input type="text" id="members" placeholder="Membros (ex: Ana, João, Maria, Pedro)">
+        </div>
+        <button class="btn-salvar" id="saveTeamBtn"><i class="fas fa-save"></i> Salvar dados da equipe</button>
+        <div id="teamDisplay" class="equipe-info" style="display: none;"></div>
+    </div>
+
+    <!-- GRADE DE ATIVIDADES -->
+    <div class="atividades-grid">
+        
+        <!-- 1) TEMA 8 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                <h2>1️⃣ Tema 8</h2>
+            </div>
+            <p>Material teórico completo sobre Metodologias Ágeis. Conceitos, Scrum, Kanban, XP e princípios do Manifesto Ágil.</p>
+            <a href="Tema8.html" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i> Abrir Tema8.html</a>
+            <div class="entrega-badge"><i class="fas fa-graduation-cap"></i> Leitura obrigatória</div>
+        </div>
+
+        <!-- 2) APP VAREJO ÁGIL (EXEMPLO) -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h2>2️⃣ App Varejo Ágil</h2>
+            </div>
+            <p>Exemplo prático do MVP do aplicativo de compras. Simule o fluxo completo com busca, carrinho, chat, rastreio e promoções.</p>
+            <a href="Exemplo.html" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i> Abrir Exemplo.html</a>
+            <div class="entrega-badge"><i class="fas fa-lightbulb"></i> Explore as 6 features do app</div>
+        </div>
+
+        <!-- 3) AVALIAÇÃO + GOOGLE FORMS -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
+                <h2>3️⃣ Avaliação</h2>
+            </div>
+            <p>Teste seus conhecimentos! Responda as 15 questões sobre Metodologias Ágeis (múltipla escolha e V/F).</p>
+            <a href="Testes.html" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i> Abrir Testes.html</a>
+            <div class="entrega-badge">
+                <i class="fas fa-cloud-upload-alt"></i> <strong>Envio:</strong> Repositório <code>agil</code> + 
+                <a href="https://forms.gle/T9QSe3PyEpru3t538" target="_blank" style="color:#38bdf8;">Google Forms</a>
+            </div>
+        </div>
+
+        <!-- 4) EXEMPLO DE APLICAÇÃO ÁGIL + PDF -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+                <h2>4️⃣ Aplicação Ágil</h2>
+            </div>
+            <p>Analise o caso prático e responda às questões no documento "Respostas_App_Agil".</p>
+            <a href="app.html" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i> Abrir app.html</a>
+            <a href="App_Scrum.pdf" class="card-link" target="_blank" style="background:#38bdf8; margin-left:0.5rem;"><i class="fas fa-file-pdf"></i> App_Scrum.pdf</a>
+            <div class="entrega-badge">
+                <i class="fas fa-cloud-upload-alt"></i> Enviar: <strong>Respostas_App_Agil</strong> → repositório <code>agil</code>
+            </div>
+        </div>
+
+        <!-- 5) DIAGRAMA CHAT -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-comments"></i></div>
+                <h2>5️⃣ Diagrama - Chat</h2>
+            </div>
+            <p>Esboce o diagrama de atividades relacionado ao fluxo do CHAT conforme orientação.</p>
+            <a href="1_draw.pdf" class="card-link" target="_blank"><i class="fas fa-download"></i> 1_draw.pdf (orientação)</a>
+            <div class="entrega-badge">
+                <i class="fas fa-cloud-upload-alt"></i> Exportar como <strong>chat.PNG</strong> → repositório <code>agil</code>
+            </div>
+        </div>
+
+        <!-- 6) DIAGRAMA PROMOÇÕES -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon"><i class="fas fa-tags"></i></div>
+                <h2>6️⃣ Diagrama - Promoções</h2>
+            </div>
+            <p>Esboce o diagrama de atividades relacionado ao fluxo de PROMOÇÕES conforme orientação.</p>
+            <a href="2_draw.pdf" class="card-link" target="_blank"><i class="fas fa-download"></i> 2_draw.pdf (orientação)</a>
+            <div class="entrega-badge">
+                <i class="fas fa-cloud-upload-alt"></i> Exportar como <strong>promocoes.PNG</strong> → repositório <code>agil</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO DO REPOSITÓRIO -->
+    <div class="repo-section">
+        <h3><i class="fab fa-github"></i> Repositório de Entregas</h3>
+        <p>Todos os arquivos devem ser enviados para o repositório denominado <strong style="color:#facc15;">"agil"</strong></p>
+        <p>📁 Conteúdo esperado no repositório:</p>
+        <ul style="list-style: none; margin: 0.5rem 0;">
+            <li>✅ <strong>Respostas_App_Agil</strong> (documento com as respostas da atividade 4)</li>
+            <li>✅ <strong>chat.PNG</strong> (diagrama de atividades do chat)</li>
+            <li>✅ <strong>promocoes.PNG</strong> (diagrama de atividades das promoções)</li>
+            <li>✅ Link do <a href="https://forms.gle/T9QSe3PyEpru3t538" target="_blank" class="repo-link">Google Forms</a> preenchido (atividade 3)</li>
+        </ul>
+        <div style="background: #0f172a; border-radius: 1rem; padding: 0.8rem; margin-top: 0.5rem;">
+            <i class="fas fa-link"></i> Formulário oficial: <a href="https://forms.gle/T9QSe3PyEpru3t538" target="_blank" style="color:#38bdf8;">https://forms.gle/T9QSe3PyEpru3t538</a>
+        </div>
+    </div>
+
+    <footer>
+        <i class="fas fa-graduation-cap"></i> Entrega final - Metodologias Ágeis | Repositório "agil" <br>
+        Todas as atividades devem ser concluídas e enviadas até a data estipulada pelo professor.
+    </footer>
+</div>
+
+<script>
+    // Carregar dados da equipe do localStorage
+    function loadTeamData() {
+        const savedTeam = localStorage.getItem("agil_team_data");
+        if (savedTeam) {
+            try {
+                const data = JSON.parse(savedTeam);
+                document.getElementById("teamName").value = data.teamName || "";
+                document.getElementById("members").value = data.members || "";
+                if (data.teamName && data.members) {
+                    document.getElementById("teamDisplay").style.display = "block";
+                    document.getElementById("teamDisplay").innerHTML = `
+                        <i class="fas fa-check-circle" style="color:#22c55e;"></i> 
+                        <strong>Equipe ativa:</strong> ${data.teamName} | 
+                        <strong>Membros:</strong> ${data.members}
+                        <button id="editTeamBtn" style="background:#facc15; border:none; border-radius:2rem; padding:0.2rem 0.8rem; margin-left:1rem; cursor:pointer;">✏️ Editar</button>
+                    `;
+                    document.getElementById("editTeamBtn")?.addEventListener("click", () => {
+                        document.getElementById("teamDisplay").style.display = "none";
+                    });
+                }
+            } catch(e) {}
+        }
+    }
+
+    // Salvar dados da equipe
+    document.getElementById("saveTeamBtn").addEventListener("click", () => {
+        const teamName = document.getElementById("teamName").value.trim();
+        const members = document.getElementById("members").value.trim();
+        if (!teamName || !members) {
+            alert("⚠️ Preencha o nome da equipe e os membros!");
+            return;
+        }
+        const teamData = { teamName, members };
+        localStorage.setItem("agil_team_data", JSON.stringify(teamData));
+        document.getElementById("teamDisplay").style.display = "block";
+        document.getElementById("teamDisplay").innerHTML = `
+            <i class="fas fa-check-circle" style="color:#22c55e;"></i> 
+            <strong>Equipe ativa:</strong> ${teamName} | 
+            <strong>Membros:</strong> ${members}
+            <button id="editTeamBtn" style="background:#facc15; border:none; border-radius:2rem; padding:0.2rem 0.8rem; margin-left:1rem; cursor:pointer;">✏️ Editar</button>
+        `;
+        document.getElementById("editTeamBtn")?.addEventListener("click", () => {
+            document.getElementById("teamDisplay").style.display = "none";
+        });
+        alert(`✅ Equipe "${teamName}" registrada com sucesso!`);
+    });
+
+    loadTeamData();
+
+    // Garantir que todos os links abram em nova aba (já têm target="_blank")
+    // Mensagem de boas-vindas
+    console.log("Central de Atividades - Metodologias Ágeis");
+</script>
+</body>
+</html>

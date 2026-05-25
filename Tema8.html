@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ágil Academy | Guia Completo de Metodologias Ágeis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1c;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        /* ========== HEADER E NAVEGAÇÃO ========== */
+        .header {
+            background: linear-gradient(135deg, #0f1629 0%, #1a1f35 100%);
+            border-bottom: 1px solid #facc1520;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #facc15, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .logo p {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: transparent;
+            border: 1px solid #334155;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            color: #cbd5e6;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .tab-btn:hover {
+            background: #334155;
+            color: #facc15;
+        }
+        .tab-btn.active {
+            background: #facc15;
+            color: #0f172a;
+            border-color: #facc15;
+        }
+
+        /* ========== CONTAINER PRINCIPAL ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* ========== CONTEÚDO DAS ABAS ========== */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== CARDS E TIPOGRAFIA ========== */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #facc15, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin: 1.5rem 0 1rem;
+            border-left: 4px solid #facc15;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.2rem 0 0.8rem;
+            color: #facc15;
+        }
+        h4 {
+            font-size: 1.1rem;
+            margin: 0.8rem 0;
+            color: #94a3b8;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            border-color: #facc1540;
+            background: rgba(30, 41, 59, 0.7);
+        }
+        .badge {
+            display: inline-block;
+            background: #facc1520;
+            color: #facc15;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .info-box {
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1rem;
+            border-left: 3px solid #38bdf8;
+        }
+        .comparacao {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .comparacao-item {
+            flex: 1;
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1rem;
+            min-width: 200px;
+        }
+        .analogia {
+            background: #1e293b;
+            border-radius: 0.8rem;
+            padding: 0.8rem 1rem;
+            margin: 0.8rem 0;
+            font-style: italic;
+            border-left: 3px solid #facc15;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: #0f172a;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        th {
+            background: #1e293b;
+            color: #facc15;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #334155;
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #38bdf8);
+            transition: width 0.3s;
+        }
+        .glossary-search {
+            margin-bottom: 1rem;
+        }
+        .glossary-search input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 2rem;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 1rem;
+        }
+        .glossary-term {
+            background: #0f172a;
+            border-radius: 0.8rem;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .glossary-term:hover {
+            background: #1e293b;
+            border-left: 3px solid #facc15;
+        }
+        .glossary-term strong {
+            color: #facc15;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #334155;
+            margin-top: 2rem;
+            color: #64748b;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .header-content { flex-direction: column; text-align: center; }
+            .tab-btn { font-size: 0.8rem; padding: 0.4rem 1rem; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <div class="logo">
+            <h1><i class="fas fa-rocket"></i> Ágil Academy</h1>
+            <p>Guia completo de Metodologias Ágeis para jovens devs</p>
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="intro"><i class="fas fa-home"></i> Início</button>
+            <button class="tab-btn" data-tab="conceitos"><i class="fas fa-book"></i> Conceitos</button>
+            <button class="tab-btn" data-tab="comparacao"><i class="fas fa-chart-line"></i> Comparação</button>
+            <button class="tab-btn" data-tab="exemplo"><i class="fas fa-code-branch"></i> Exemplo prático</button>
+            <button class="tab-btn" data-tab="glossario"><i class="fas fa-glossary"></i> Glossário</button>
+        </div>
+    </div>
+    <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+</header>
+
+<div class="container">
+    <!-- ==================== ABA 1: INTRODUÇÃO ==================== -->
+    <div id="intro-tab" class="tab-content active">
+        <div class="card">
+            <h1>📘 Metodologias Ágeis de Desenvolvimento</h1>
+            <p>Bem-vindo ao <strong>Ágil Academy</strong>! Este guia foi criado especialmente para jovens entre 16 e 18 anos que estão iniciando no mundo do Desenvolvimento de Sistemas. Aqui você vai entender por que times de tecnologia usam métodos ágeis, como eles se diferenciam do modelo tradicional (Cascata) e como aplicar Scrum, Kanban e XP na prática.</p>
+            <div class="analogia">
+                <i class="fas fa-lightbulb"></i> <strong>Por que isso importa?</strong> Saber metodologias ágeis é tão importante quanto saber programar. Empresas como Google, Spotify, Amazon e Nubank usam ágil para entregar valor rápido e se adaptar ao mercado.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 O que você vai aprender</h2>
+            <div class="grid-2">
+                <div class="info-box">✅ Coletar requisitos de usuários e sistemas</div>
+                <div class="info-box">✅ Utilizar métodos de pesquisa e coleta de dados</div>
+                <div class="info-box">✅ Aplicar o modelo Cascata (quando usar)</div>
+                <div class="info-box">✅ Aplicar modelos Ágeis (Scrum, Kanban, XP)</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🧠 Analogia inicial</h2>
+            <div class="comparacao">
+                <div class="comparacao-item">
+                    <h3>💧 Modelo Cascata</h3>
+                    <p>Construir uma casa desenhando tudo antes, comprando todos os materiais e só mostrando ao dono no final. Se ele pedir uma janela extra, você quebra paredes.</p>
+                </div>
+                <div class="comparacao-item">
+                    <h3>⚡ Modelo Ágil</h3>
+                    <p>Entregar um quarto pronto em 2 semanas. O dono vê, gosta e pede ajustes. Na próxima entrega, a cozinha. Mudanças são bem-vindas a cada ciclo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Progresso do estudo</h2>
+            <p>Marque os tópicos que você já leu:</p>
+            <div id="checklist" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label><input type="checkbox" class="progress-check"> Introdução e conceitos fundamentais</label>
+                <label><input type="checkbox" class="progress-check"> Modelo Cascata (tradicional)</label>
+                <label><input type="checkbox" class="progress-check"> Manifesto Ágil e valores</label>
+                <label><input type="checkbox" class="progress-check"> Scrum, Kanban, XP e Lean</label>
+                <label><input type="checkbox" class="progress-check"> Comparação Ágil vs Tradicional</label>
+                <label><input type="checkbox" class="progress-check"> Exemplo prático (App Varejista)</label>
+                <label><input type="checkbox" class="progress-check"> Glossário completo</label>
+            </div>
+            <div class="badge" id="checkCounter" style="margin-top: 1rem;">0/7 concluídos</div>
+        </div>
+    </div>
+
+    <!-- ==================== ABA 2: CONCEITOS ==================== -->
+    <div id="conceitos-tab" class="tab-content">
+        <div class="card">
+            <h2>📖 Modelo Cascata (Tradicional)</h2>
+            <p>Criado na década de 1970. Fases sequenciais que não voltam atrás.</p>
+            <div class="analogia">🎬 "Filme sem cortes" – você escreve roteiro, grava, edita e só depois mostra. Mudar é caro.</div>
+            <table>
+                <tr><th>Fase</th><th>Descrição</th></tr>
+                <tr><td>1. Requisitos</td><td>Levantar o que o sistema precisa fazer</td></tr>
+                <tr><td>2. Análise</td><td>Modelar diagramas, regras de negócio</td></tr>
+                <tr><td>3. Projeto</td><td>Arquitetura, banco de dados</td></tr>
+                <tr><td>4. Implementação</td><td>Codificação</td></tr>
+                <tr><td>5. Testes</td><td>Validar funcionamento</td></tr>
+                <tr><td>6. Implantação</td><td>Entregar e manter</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>📜 Manifesto Ágil (2001)</h2>
+            <p><strong>4 valores fundamentais:</strong></p>
+            <div class="grid-2">
+                <div class="info-box">🙋 Indivíduos e interações > processos e ferramentas</div>
+                <div class="info-box">💻 Software em funcionamento > documentação abrangente</div>
+                <div class="info-box">🤝 Colaboração com o cliente > negociação de contratos</div>
+                <div class="info-box">🔄 Responder a mudanças > seguir um plano rígido</div>
+            </div>
+            <h3>12 Princípios Ágeis (resumo)</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>Entregas frequentes (semanas, não meses)</li>
+                <li>Mudanças são bem-vindas</li>
+                <li>Cliente presente diariamente</li>
+                <li>Times motivados e autônomos</li>
+                <li>Conversa face a face é a melhor comunicação</li>
+                <li>Software funcional é a medida de progresso</li>
+                <li>Ritmo sustentável</li>
+                <li>Excelência técnica</li>
+                <li>Simplicidade</li>
+                <li>Equipes auto-organizadas</li>
+                <li>Reflexão e ajuste contínuos</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🏉 Scrum</h2>
+            <div class="grid-2">
+                <div class="info-box"><strong>Papéis:</strong><br>Product Owner (PO), Scrum Master (SM), Time Dev</div>
+                <div class="info-box"><strong>Eventos:</strong><br>Sprint Planning, Daily Scrum, Sprint Review, Retrospectiva</div>
+                <div class="info-box"><strong>Artefatos:</strong><br>Product Backlog, Sprint Backlog, Incremento</div>
+                <div class="info-box"><strong>Duração:</strong><br>Sprints de 1 a 4 semanas</div>
+            </div>
+            <div class="analogia">🏉 Rugby: time inteiro avança junto em direção ao gol (Sprint). Depois de cada jogada, ajustam estratégia.</div>
+        </div>
+
+        <div class="card">
+            <h2>📌 Kanban</h2>
+            <p>Quadro visual com colunas: <strong>📋 Backlog | 🔲 A Fazer | ▶️ Fazendo (WIP) | ✅ Concluído</strong></p>
+            <div class="analogia">🏪 Caixas de supermercado: limite de WIP evita filas gigantes.</div>
+        </div>
+
+        <div class="card">
+            <h2>🧪 XP (Extreme Programming)</h2>
+            <ul>
+                <li><strong>Programação em par</strong> – dois devs, um computador</li>
+                <li><strong>TDD</strong> – teste antes do código</li>
+                <li><strong>Integração contínua</strong> – várias vezes ao dia</li>
+                <li><strong>Cliente presente</strong> – no time</li>
+            </ul>
+            <div class="analogia">✈️ Dois pilotos: um pilota, o outro verifica.</div>
+        </div>
+
+        <div class="card">
+            <h2>🏭 Lean e SAFe</h2>
+            <p><strong>Lean:</strong> eliminar desperdícios, entregar rápido, empoderar equipe.</p>
+            <p><strong>SAFe:</strong> framework para escalar ágil em grandes empresas (múltiplos times coordenados).</p>
+        </div>
+    </div>
+
+    <!-- ==================== ABA 3: COMPARAÇÃO ==================== -->
+    <div id="comparacao-tab" class="tab-content">
+        <div class="card">
+            <h2>🔄 Cascata vs Ágil</h2>
+            <table>
+                <tr><th>Aspecto</th><th>Cascata</th><th>Ágil</th></tr>
+                <tr><td>Abordagem</td><td>Sequencial</td><td>Iterativa e incremental</td></tr>
+                <tr><td>Mudanças</td><td>Difíceis e caras</td><td>Bem-vindas a qualquer momento</td></tr>
+                <tr><td>Cliente</td><td>Vê no início e no fim</td><td>Envolvido continuamente</td></tr>
+                <tr><td>Entrega</td><td>Única no final</td><td>Múltiplas (cada Sprint)</td></tr>
+                <tr><td>Documentação</td><td>Extensa</td><td>Mínima necessária</td></tr>
+                <tr><td>Riscos</td><td>Descobertos no final</td><td>Mitigados cedo</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>📊 Benefícios das Metodologias Ágeis</h2>
+            <div class="grid-2">
+                <div class="info-box">✅ Adaptação a mudanças</div>
+                <div class="info-box">✅ Entrega rápida de valor</div>
+                <div class="info-box">✅ Cliente satisfeito (feedback contínuo)</div>
+                <div class="info-box">✅ Melhoria contínua do time</div>
+                <div class="info-box">✅ Maior qualidade (testes frequentes)</div>
+                <div class="info-box">✅ Transparência total</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>⚠️ Desafios das Metodologias Ágeis</h2>
+            <ul>
+                <li>Resistência cultural – pessoas acostumadas com Cascata</li>
+                <li>Escalar para projetos grandes – exige SAFe ou similar</li>
+                <li>Mudanças constantes demais – podem atrapalhar se não houver priorização clara</li>
+                <li>Falta de experiência – time precisa de treinamento</li>
+                <li>Stakeholders desengajados – cliente precisa participar</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== ABA 4: EXEMPLO PRÁTICO ==================== -->
+    <div id="exemplo-tab" class="tab-content">
+        <div class="card">
+            <h2>🛍️ App da Rede Varejista</h2>
+            <p><strong>Cenário:</strong> Uma grande rede varejista quer um app para busca, compras, rastreamento de pedidos e promoções personalizadas. O time decide usar <strong>Scrum com Sprints de 2 semanas</strong>.</p>
+        </div>
+
+        <div class="card">
+            <h3>1. Coleta de Requisitos</h3>
+            <p>Entrevistas com stakeholders + análise de concorrentes. O Product Backlog inicial:</p>
+            <ol>
+                <li>🔍 Buscar produtos (prioridade máxima)</li>
+                <li>🛒 Carrinho e compra</li>
+                <li>📦 Acompanhar pedido</li>
+                <li>🎁 Promoções personalizadas</li>
+                <li>👤 Perfil do usuário</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h3>2. Planejamento da Sprint 1</h3>
+            <p><strong>Meta:</strong> entregar busca funcional + carrinho básico.<br>
+            <strong>Tarefas:</strong> tela de busca, integração com API, tela do carrinho, simulação de pagamento.</p>
+        </div>
+
+        <div class="card">
+            <h3>3. Mudança de requisito (teste ágil)</h3>
+            <div class="analogia">💬 <strong>Cliente:</strong> "Precisamos de CHAT AO VIVO com urgência!"</div>
+            <p><strong>Time ágil:</strong> não cancela a Sprint. Adiciona Chat ao Product Backlog com prioridade alta. Na Sprint 2, o Chat entra. Cliente vê que sua demanda será atendida rapidamente.</p>
+        </div>
+
+        <div class="card">
+            <h3>4. Quadro Kanban da equipe</h3>
+            <table>
+                <tr><th>Backlog</th><th>A Fazer</th><th>Fazendo (WIP=3)</th><th>Concluído</th></tr>
+                <tr><td>Chat</td><td>Promoções</td><td>🟡 Carrinho</td><td>✅ Busca API</td></tr>
+                <tr><td>Perfil</td><td>Rastreio</td><td>🟡 Tela pagamento</td><td>✅ Login</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>5. Resultado após 4 Sprints (2 meses)</h3>
+            <p>App entregue com: Busca ✅ Carrinho ✅ Rastreio ✅ Chat ✅ Promoções ✅ Perfil ✅<br>
+            Cliente satisfeito, time motivado. Entregas incrementais geraram valor desde a primeira Sprint.</p>
+        </div>
+    </div>
+
+    <!-- ==================== ABA 5: GLOSSÁRIO ==================== -->
+    <div id="glossario-tab" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-search"></i> Glossário Ágil</h2>
+            <div class="glossary-search">
+                <input type="text" id="glossarySearch" placeholder="🔍 Buscar termo... (ex: Sprint, Backlog, WIP)">
+            </div>
+            <div id="glossaryList"></div>
+        </div>
+    </div>
+
+    <footer>
+        <i class="fas fa-graduation-cap"></i> Ágil Academy – Material baseado no conteúdo de Metodologias Ágeis (2023).<br>
+        Estude, pratique e transforme sua mentalidade de desenvolvimento!
+    </footer>
+</div>
+
+<script>
+    // Dados do glossário (42 termos do guia completo)
+    const glossaryData = [
+        { term: "Agile Release Train (ART)", definition: "No SAFe, conjunto de 5 a 12 times ágeis sincronizados." },
+        { term: "Backlog", definition: "Lista priorizada de tudo que o produto precisa ter. Exemplo: funcionalidades do app." },
+        { term: "Burndown Chart", definition: "Gráfico que mostra trabalho restante ao longo do tempo." },
+        { term: "Cascata (Waterfall)", definition: "Modelo tradicional com fases sequenciais (requisitos → análise → projeto → código → testes)." },
+        { term: "Daily Scrum", definition: "Reunião diária de 15 min onde o time alinha: o que fez, o que fará, impedimentos." },
+        { term: "Incremento", definition: "Versão funcional do produto ao final de cada Sprint." },
+        { term: "Integração Contínua", definition: "Prática de integrar código várias vezes ao dia." },
+        { term: "Iteração", definition: "Ciclo completo de desenvolvimento, sinônimo de Sprint." },
+        { term: "Kanban", definition: "Método ágil com quadro visual e limite de WIP." },
+        { term: "Lead Time", definition: "Tempo entre o pedido do cliente e a entrega." },
+        { term: "Lean", definition: "Filosofia de eliminar desperdícios e entregar valor rápido." },
+        { term: "Manifesto Ágil", definition: "Documento de 2001 com 4 valores e 12 princípios ágeis." },
+        { term: "MVP (Minimum Viable Product)", definition: "Versão mais simples que resolve o problema do cliente." },
+        { term: "Product Backlog", definition: "Lista priorizada de funcionalidades, gerida pelo Product Owner." },
+        { term: "Product Owner (PO)", definition: "Responsável por priorizar o backlog e representar o cliente." },
+        { term: "Programação em Par", definition: "Dois desenvolvedores, um computador; revisão contínua." },
+        { term: "Refatoração", definition: "Melhorar a estrutura do código sem mudar comportamento." },
+        { term: "Retrospectiva", definition: "Reunião após a Sprint para melhorar o processo do time." },
+        { term: "Review", definition: "Reunião para mostrar o incremento ao cliente e receber feedback." },
+        { term: "SAFe", definition: "Scaled Agile Framework – para aplicar ágil em grandes organizações." },
+        { term: "Scrum", definition: "Metodologia ágil com Sprints, papéis e cerimônias." },
+        { term: "Scrum Master", definition: "Facilitador que remove impedimentos e protege o time." },
+        { term: "Sprint", definition: "Ciclo de desenvolvimento de 1 a 4 semanas." },
+        { term: "Sprint Backlog", definition: "Itens escolhidos para a Sprint + plano de entrega." },
+        { term: "Story Points", definition: "Unidade relativa para estimar esforço em Scrum." },
+        { term: "TDD (Test-Driven Development)", definition: "Escrever o teste antes do código." },
+        { term: "Time de Desenvolvimento", definition: "Profissionais que constroem o produto (auto-organizados)." },
+        { term: "Velocidade (Velocity)", definition: "Quantidade de trabalho que o time completa por Sprint." },
+        { term: "WIP (Work In Progress)", definition: "Limite de tarefas em andamento simultâneo." },
+        { term: "XP (Extreme Programming)", definition: "Metodologia ágil focada em qualidade técnica." },
+        { term: "Daily", definition: "Apelido para Daily Scrum." },
+        { term: "PO", definition: "Sigla para Product Owner." },
+        { term: "SM", definition: "Sigla para Scrum Master." },
+        { term: "Incremento", definition: "Resultado funcional de uma Sprint." },
+        { term: "Program Increment (PI)", definition: "Ciclo de 8-12 semanas no SAFe." },
+        { term: "PI Planning", definition: "Evento de planejamento sincronizado no SAFe." },
+        { term: "Quadro Kanban", definition: "Ferramenta visual com colunas e cartões." },
+        { term: "Cultura Ágil", definition: "Mentalidade que valoriza colaboração, adaptação e melhoria contínua." }
+    ];
+
+    function renderGlossary(filter = "") {
+        const container = document.getElementById("glossaryList");
+        if (!container) return;
+        const filtered = glossaryData.filter(item => 
+            item.term.toLowerCase().includes(filter.toLowerCase()) || 
+            item.definition.toLowerCase().includes(filter.toLowerCase())
+        );
+        container.innerHTML = filtered.map(item => `
+            <div class="glossary-term">
+                <strong>${item.term}</strong><br>
+                <span style="font-size: 0.9rem; color: #cbd5e6;">${item.definition}</span>
+            </div>
+        `).join("");
+        if (filtered.length === 0) {
+            container.innerHTML = "<div class='info-box'>Nenhum termo encontrado.</div>";
+        }
+    }
+
+    // Controle de abas
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    function activateTab(tabId) {
+        contents.forEach(content => content.classList.remove('active'));
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+        tabs.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            activateTab(tabId);
+            if (tabId === 'glossario') renderGlossary('');
+        });
+    });
+
+    // Busca no glossário
+    const searchInput = document.getElementById("glossarySearch");
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => renderGlossary(e.target.value));
+    }
+
+    // Progresso com checkboxes
+    const checkboxes = document.querySelectorAll('.progress-check');
+    const counterSpan = document.getElementById('checkCounter');
+
+    function updateProgress() {
+        const total = checkboxes.length;
+        const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const percent = (checked / total) * 100;
+        document.getElementById('progressFill').style.width = percent + '%';
+        if (counterSpan) counterSpan.innerText = `${checked}/${total} concluídos`;
+        localStorage.setItem('agilProgress', JSON.stringify(Array.from(checkboxes).map(cb => cb.checked)));
+    }
+
+    if (checkboxes.length) {
+        const saved = localStorage.getItem('agilProgress');
+        if (saved) {
+            const states = JSON.parse(saved);
+            checkboxes.forEach((cb, idx) => { if (states[idx]) cb.checked = true; });
+        }
+        checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+        updateProgress();
+    }
+
+    // Render inicial do glossário se necessário
+    if (document.getElementById('glossario-tab').classList.contains('active')) {
+        renderGlossary('');
+    }
+</script>
+</body>
+</html>

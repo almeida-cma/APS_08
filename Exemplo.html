@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ágil Academy | Curso de Metodologias Ágeis para jovens devs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b1120 0%, #192132 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* header */
+        .hero {
+            background: rgba(255,255,255,0.02);
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #facc15, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 1rem auto 0;
+            color: #94a3b8;
+        }
+
+        /* cards e estrutura */
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 1px solid #334155;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #facc1540;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            border-left: 5px solid #facc15;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin: 1rem 0 0.5rem;
+            color: #facc15;
+        }
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .conceito-card {
+            background: #0f172a;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border-left: 4px solid #38bdf8;
+        }
+        .analogia-box {
+            background: #1e293b;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 0.8rem;
+            font-style: italic;
+            border-left: 3px solid #facc15;
+        }
+        .comparacao {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .comparacao-item {
+            flex: 1;
+            background: #0f172a;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+        .comparacao-item h4 { color: #facc15; margin-bottom: 0.5rem; }
+        .badge-destaque {
+            display: inline-block;
+            background: #facc1520;
+            color: #facc15;
+            border-radius: 2rem;
+            padding: 0.2rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* formulário equipe */
+        .team-form {
+            background: linear-gradient(120deg, #1e293b, #0f172a);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        input, textarea, select {
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 2rem;
+            padding: 0.8rem 1.2rem;
+            color: white;
+            font-size: 1rem;
+        }
+        input { flex: 1; }
+        button {
+            background: #facc15;
+            color: #0f172a;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.8rem 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover { background: #eab308; transform: scale(0.98); }
+
+        /* atividade estruturada */
+        .etapa-atividade {
+            background: #0f172a;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #334155;
+        }
+        .etapa-titulo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #facc15;
+            margin-bottom: 0.5rem;
+        }
+        .etapa-descricao {
+            margin-bottom: 1rem;
+            color: #cbd5e6;
+        }
+        textarea {
+            width: 100%;
+            border-radius: 1rem;
+            background: #0f172a;
+            font-family: monospace;
+            margin: 0.5rem 0;
+        }
+        .resultado-aluno {
+            background: #1e293b;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* badges */
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .badge {
+            background: #2d374b;
+            border-radius: 2rem;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .badge.liberada {
+            background: #facc15;
+            color: #0f172a;
+            box-shadow: 0 0 10px #facc15;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: #64748b;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HERO -->
+    <div class="hero">
+        <h1>🚀 Ágil Academy</h1>
+        <p>Metodologias Ágeis: como times de alta performance entregam valor rápido e se adaptam a mudanças.<br>
+        Prepare-se para o mercado com conceitos sólidos, exemplos e um desafio prático real!</p>
+        <div class="badge-destaque" style="margin-top: 1rem;">🎯 3 horas de missão | Para jovens devs (16-18 anos)</div>
+    </div>
+
+    <!-- 1. CONCEITOS FUNDAMENTAIS (MAIS PROFUNDO) -->
+    <div class="card">
+        <h2>📖 1. O problema do modelo tradicional (Cascata)</h2>
+        <div class="comparacao">
+            <div class="comparacao-item">
+                <h4>💧 Modelo Cascata</h4>
+                <p>Fases fixas: <strong>Análise → Projeto → Código → Teste → Entrega</strong>. Só se vê o produto no final.</p>
+                <div class="analogia-box">🎬 Analogia: filme onde você escreve roteiro, grava tudo e só no final mostra. Se o cliente quiser mudar algo, é caro e demorado.</div>
+                <p>❌ Problemas: requisitos mudam, retrabalho gigante, cliente insatisfeito.</p>
+            </div>
+            <div class="comparacao-item">
+                <h4>⚡ Modelos Ágeis</h4>
+                <p>Ciclos curtos (<strong>Sprints de 1 a 4 semanas</strong>), entrega contínua de valor, time multi-funcional.</p>
+                <div class="analogia-box">🎮 Analogia: jogo lançado em níveis (early access). A cada 2 semanas você joga uma fase nova e dá feedback. O jogo melhora sempre.</div>
+                <p>✅ Vantagens: adaptação, cliente presente, entregas frequentes.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📜 2. Manifesto Ágil (2001) - Os 4 Valores</h2>
+        <div class="grid-2">
+            <div class="conceito-card"><strong>🙋 Indivíduos e interações</strong> mais que processos e ferramentas.<div class="analogia-box">Conversar com o time é melhor que seguir regras cegas.</div></div>
+            <div class="conceito-card"><strong>💻 Software em funcionamento</strong> mais que documentação extensa.<div class="analogia-box">Um app que funciona vale mais que 100 páginas de manual.</div></div>
+            <div class="conceito-card"><strong>🤝 Colaboração com o cliente</strong> mais que negociação de contratos.<div class="analogia-box">Cliente no time, não do outro lado da mesa.</div></div>
+            <div class="conceito-card"><strong>🔄 Responder a mudanças</strong> mais que seguir um plano rígido.<div class="analogia-box">Mudou requisito? Ótimo, ajustamos no próximo Sprint!</div></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🏃 3. Scrum, Kanban e XP - na prática</h2>
+        <div class="grid-3">
+            <div class="conceito-card">
+                <strong>🏉 Scrum</strong>
+                <p>Papéis: PO (Product Owner), Scrum Master, Time Dev. Eventos: Sprint Planning, Daily, Review, Retrospectiva.</p>
+                <div class="analogia-box">Time de futebol: técnico (SM), capitão(PO), jogadores. Jogam partidas curtas (Sprints).</div>
+            </div>
+            <div class="conceito-card">
+                <strong>📌 Kanban</strong>
+                <p>Quadro visual: 📋 To Do | ▶️ Doing | ✅ Done. Limite de tarefas em progresso (WIP).</p>
+                <div class="analogia-box">Fila de supermercado: só 2 caixas abertos (WIP), evita gargalo.</div>
+            </div>
+            <div class="conceito-card">
+                <strong>🧪 XP (Extreme)</strong>
+                <p>Programação em par, TDD (testes antes do código), integração contínua, código limpo.</p>
+                <div class="analogia-box">Dois pilotos no mesmo avião: revisam um ao outro em voo.</div>
+            </div>
+        </div>
+        <div class="badge-destaque" style="margin-top: 1rem;">🎯 Product Backlog = lista priorizada de tudo que o produto precisa ter. Sprint Backlog = itens que o time fará nos próximos dias.</div>
+    </div>
+
+    <!-- EXEMPLO VISUAL APLICATIVO VAREJO -->
+    <div class="card">
+        <h2>🛍️ Exemplo prático: App da Rede Varejista</h2>
+        <p><strong>Requisitos iniciais:</strong> Buscar produtos, carrinho/compra, rastrear pedido, promoções personalizadas, perfil do usuário.</p>
+        <div class="comparacao">
+            <div class="comparacao-item">
+                <h4>❌ Abordagem Cascata</h4>
+                <p>Plano detalhado de 6 meses. Após 4 meses, cliente descobre que precisa de CHAT AO VIVO. Mudar? Custo altíssimo, time trava.</p>
+            </div>
+            <div class="comparacao-item">
+                <h4>✅ Abordagem Ágil (Scrum)</h4>
+                <p>Sprint 1 (2 semanas): entrega Busca + Carrinho simples. Cliente vê, pede Chat. Time insere no Backlog, planeja Sprint 2 com Chat. Valor entregue rápido!</p>
+            </div>
+        </div>
+        <div class="analogia-box">💡 <strong>MVP (Mínimo Produto Viável):</strong> a menor versão que resolve o problema principal. Depois vamos adicionando funcionalidades em Sprints.</div>
+    </div>
+
+    <!-- REGISTRO DA EQUIPE OBRIGATÓRIO -->
+    <div class="team-form" id="teamSection">
+        <h2>👥 4. Ative sua equipe ágil</h2>
+        <p>Preencha para participar do desafio principal e ganhar badges de reconhecimento.</p>
+        <div class="form-row">
+            <input type="text" id="teamName" placeholder="Nome da equipe (ex: CodeCrusaders)">
+            <input type="text" id="members" placeholder="Componentes (ex: Ana, João, Maria, Pedro)">
+            <button id="registerTeamBtn">✅ Registrar equipe</button>
+        </div>
+        <div id="teamStatus"></div>
+    </div>
+
+    <!-- DESAFIO PRINCIPAL: ATIVIDADE ESTRUTURADA EM ETAPAS -->
+    <div class="card">
+        <h2>🏆 DESAFIO PRINCIPAL: App Varejo Ágil</h2>
+        <p><strong>Cenário:</strong> Você é o time de desenvolvimento contratado para criar um app de compras. O cliente (varejista) confia na sua mentalidade ágil. Siga as etapas abaixo e registre as respostas da equipe.</p>
+
+        <!-- ETAPA 1 - BACKLOG -->
+        <div class="etapa-atividade" id="etapa1">
+            <div class="etapa-titulo">📋 Etapa 1: Coletar requisitos e criar o Product Backlog</div>
+            <div class="etapa-descricao">
+                Com base na conversa com o cliente, liste <strong>6 requisitos</strong> (funcionalidades) que o app deve ter. 
+                Depois, <strong>priorize de 1 a 6</strong> (1 = mais valioso para o negócio). Use a técnica MoSCoW se quiser: Must have, Should have, Could have.
+            </div>
+            <textarea id="backlogInput" rows="6" placeholder="Exemplo:&#10;1. [Prioridade 1] Buscar produtos por nome e filtros&#10;2. [Prioridade 2] Adicionar ao carrinho e finalizar compra&#10;3. [Prioridade 3] Acompanhar status do pedido&#10;4. [Prioridade 4] Receber promoções por push&#10;5. [Prioridade 5] Perfil com histórico de compras&#10;6. [Prioridade 6] Avaliar produtos comprados" style="width:100%;"></textarea>
+            <button id="saveBacklogBtn" class="badge-destaque" style="background:#38bdf8; color:#0f172a; border:none;">💾 Salvar Backlog da Equipe</button>
+            <div id="backlogFeedback" class="resultado-aluno" style="display:none;"></div>
+        </div>
+
+        <!-- ETAPA 2 - PLANEJAMENTO DA SPRINT 1 -->
+        <div class="etapa-atividade" id="etapa2">
+            <div class="etapa-titulo">🎯 Etapa 2: Planejar a Sprint 1 (2 semanas)</div>
+            <div class="etapa-descricao">
+                Com o backlog priorizado, escolha os <strong>3 itens mais importantes</strong> (topo da lista) para entregar nesta Sprint. 
+                Justifique por que esses 3 geram mais valor ao cliente. Defina uma meta da Sprint.
+            </div>
+            <textarea id="sprintInput" rows="5" placeholder="Exemplo:&#10;Itens escolhidos: 1, 2 e 3 (Busca, Carrinho, Rastreio)&#10;Meta da Sprint: Permitir que o cliente encontre produtos, compre e saiba onde está o pedido.&#10;Justificativa: Essas são as funções essenciais para começar a vender online."></textarea>
+            <button id="saveSprintBtn" class="badge-destaque" style="background:#386b81;">📌 Salvar Planejamento da Sprint</button>
+            <div id="sprintFeedback" class="resultado-aluno" style="display:none;"></div>
+        </div>
+
+        <!-- ETAPA 3 - MUDANÇA DE REQUISITO (ÁGIL NA VEIA) -->
+        <div class="etapa-atividade" id="etapa3">
+            <div class="etapa-titulo">🔄 Etapa 3: Mudança de requisito (teste da agilidade)</div>
+            <div class="etapa-descricao">
+                <strong>❗ O cliente acabou de pedir: “Precisamos de um CHAT AO VIVO para atendimento imediato, é urgente!”</strong><br>
+                Como o time ágil reage? Descreva em detalhes: 
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Onde entra esse novo requisito no backlog?</li>
+                    <li>Você cancela a Sprint atual ou adapta?</li>
+                    <li>Como comunica o cliente e o Product Owner?</li>
+                </ul>
+            </div>
+            <textarea id="mudancaInput" rows="5" placeholder="Exemplo de resposta ágil:&#10;1. O time não cancela a Sprint. Adicionamos o Chat ao Product Backlog com prioridade alta.&#10;2. Na próxima Sprint Planning, o PO prioriza o Chat acima de itens menos importantes.&#10;3. Entregamos os 3 itens atuais e já preparamos o backlog para Sprint 2 com Chat.&#10;4. Alinhamos com o cliente na Review mostrando que o Chat virá na sequência."></textarea>
+            <button id="saveMudancaBtn" class="badge-destaque" style="background:#535041;">💬 Responder à Mudança (Ágil)</button>
+            <div id="mudancaFeedback" class="resultado-aluno" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- SISTEMA DE BADGES / RECOMPENSAS -->
+    <div class="card">
+        <h2>🏅 Badges conquistados pela equipe</h2>
+        <div id="badgesContainer" class="badges-container"></div>
+        <p id="badgesMessage" style="font-size:0.9rem;">Complete as 3 etapas do desafio para desbloquear todas as recompensas!</p>
+    </div>
+
+    <footer>
+        🧠 Lembre-se: Metodologias ágeis não são só para software — servem para qualquer projeto que exija adaptação e colaboração. 
+        Parabéns pela missão! Agora vocês estão prontos para o mercado.
+    </footer>
+</div>
+
+<script>
+    // ESTADO GLOBAL
+    let equipe = {
+        nome: "",
+        membros: [],
+        etapas: {
+            backlog: false,
+            sprint: false,
+            mudanca: false
+        }
+    };
+
+    const badgesMap = {
+        backlog: { nome: "📋 PO Nato", desc: "Backlog priorizado" },
+        sprint: { nome: "🏃 Sprint Master", desc: "Planejou Sprint 1" },
+        mudanca: { nome: "🔄 Resiliência Ágil", desc: "Abraçou mudança" }
+    };
+
+    // elementos
+    const teamNameInput = document.getElementById("teamName");
+    const membersInput = document.getElementById("members");
+    const registerBtn = document.getElementById("registerTeamBtn");
+    const teamStatusDiv = document.getElementById("teamStatus");
+    const backlogBtn = document.getElementById("saveBacklogBtn");
+    const sprintBtn = document.getElementById("saveSprintBtn");
+    const mudancaBtn = document.getElementById("saveMudancaBtn");
+    const badgesContainer = document.getElementById("badgesContainer");
+
+    function updateTeamDisplay() {
+        if (equipe.nome && equipe.membros.length) {
+            teamStatusDiv.innerHTML = `<div class="resultado-aluno" style="background:#2d3b5a;">✅ Equipe ativa: <strong>${equipe.nome}</strong> | Membros: ${equipe.membros.join(", ")}</div>`;
+        } else {
+            teamStatusDiv.innerHTML = `<div class="resultado-aluno">⚠️ Nenhuma equipe registrada ainda. Use o formulário acima.</div>`;
+        }
+        renderBadges();
+    }
+
+    function renderBadges() {
+        if (!badgesContainer) return;
+        let html = "";
+        let allComplete = true;
+        for (let etapa in equipe.etapas) {
+            const concluida = equipe.etapas[etapa];
+            const badge = badgesMap[etapa];
+            if (concluida) {
+                html += `<div class="badge liberada">🏅 ${badge.nome} - ${badge.desc}</div>`;
+            } else {
+                html += `<div class="badge">🔒 ${badge.nome} (bloqueado)</div>`;
+                allComplete = false;
+            }
+        }
+        if (allComplete && equipe.nome) {
+            html += `<div class="badge liberada">🏆 MENTALIDADE ÁGIL COMPLETA!</div>`;
+        }
+        badgesContainer.innerHTML = html || "<div class='badge'>Complete as etapas para ganhar badges</div>";
+    }
+
+    function checkAllBadgesAndNotify() {
+        renderBadges();
+        if (equipe.etapas.backlog && equipe.etapas.sprint && equipe.etapas.mudanca && equipe.nome) {
+            const msgDiv = document.getElementById("badgesMessage");
+            if (msgDiv) msgDiv.innerHTML = "🎉 PARABÉNS! Sua equipe demonstrou todos os princípios ágeis. Vocês são oficialmente Devs Ágeis! 🎉";
+        }
+    }
+
+    // salvar etapas no localStorage para persistência
+    function saveToLocal() {
+        const data = {
+            nome: equipe.nome,
+            membros: equipe.membros,
+            etapas: equipe.etapas
+        };
+        localStorage.setItem("equipeAgilData", JSON.stringify(data));
+    }
+
+    function loadFromLocal() {
+        const raw = localStorage.getItem("equipeAgilData");
+        if (raw) {
+            try {
+                const data = JSON.parse(raw);
+                equipe.nome = data.nome || "";
+                equipe.membros = data.membros || [];
+                equipe.etapas = data.etapas || { backlog: false, sprint: false, mudanca: false };
+                if (teamNameInput) teamNameInput.value = equipe.nome;
+                if (membersInput) membersInput.value = equipe.membros.join(", ");
+                updateTeamDisplay();
+                // preencher textareas se existirem conteúdos salvos? (opcional - simples)
+            } catch(e) {}
+        }
+        renderBadges();
+    }
+
+    registerBtn.addEventListener("click", () => {
+        const nome = teamNameInput.value.trim();
+        const membrosRaw = membersInput.value.trim();
+        if (!nome || !membrosRaw) {
+            alert("Preencha o nome da equipe e os componentes!");
+            return;
+        }
+        equipe.nome = nome;
+        equipe.membros = membrosRaw.split(",").map(m => m.trim()).filter(m => m);
+        updateTeamDisplay();
+        saveToLocal();
+        alert(`Equipe ${equipe.nome} registrada! Agora complete as 3 etapas do desafio.`);
+    });
+
+    // Etapa 1 - Backlog
+    backlogBtn.addEventListener("click", () => {
+        if (!equipe.nome) { alert("Registre a equipe primeiro!"); return; }
+        const backlogText = document.getElementById("backlogInput").value.trim();
+        if (backlogText.length < 30) {
+            alert("Descreva o backlog com pelo menos 6 itens priorizados (use o exemplo como guia).");
+            return;
+        }
+        equipe.etapas.backlog = true;
+        saveToLocal();
+        const feedbackDiv = document.getElementById("backlogFeedback");
+        feedbackDiv.style.display = "block";
+        feedbackDiv.innerHTML = `✅ Backlog registrado com sucesso! <br><strong>Conteúdo:</strong><br> ${backlogText.replace(/\n/g, '<br>')}`;
+        renderBadges();
+        checkAllBadgesAndNotify();
+    });
+
+    // Etapa 2 - Planejamento Sprint
+    sprintBtn.addEventListener("click", () => {
+        if (!equipe.nome) { alert("Registre a equipe primeiro!"); return; }
+        if (!equipe.etapas.backlog) { alert("Complete a Etapa 1 (Backlog) primeiro!"); return; }
+        const sprintText = document.getElementById("sprintInput").value.trim();
+        if (sprintText.length < 30) {
+            alert("Detalhe o planejamento da Sprint: itens escolhidos, meta e justificativa.");
+            return;
+        }
+        equipe.etapas.sprint = true;
+        saveToLocal();
+        const feedbackDiv = document.getElementById("sprintFeedback");
+        feedbackDiv.style.display = "block";
+        feedbackDiv.innerHTML = `🏁 Sprint Planejada! <br><strong>Plano:</strong><br> ${sprintText.replace(/\n/g, '<br>')}`;
+        renderBadges();
+        checkAllBadgesAndNotify();
+    });
+
+    // Etapa 3 - Mudança de requisito
+    mudancaBtn.addEventListener("click", () => {
+        if (!equipe.nome) { alert("Registre a equipe primeiro!"); return; }
+        if (!equipe.etapas.sprint) { alert("Complete a Etapa 2 (Planejamento da Sprint) antes de responder à mudança!"); return; }
+        const mudancaText = document.getElementById("mudancaInput").value.trim();
+        if (mudancaText.length < 40) {
+            alert("Descreva detalhadamente como o time ágil lida com a inclusão do CHAT (priorização, comunicação, impacto na Sprint).");
+            return;
+        }
+        equipe.etapas.mudanca = true;
+        saveToLocal();
+        const feedbackDiv = document.getElementById("mudancaFeedback");
+        feedbackDiv.style.display = "block";
+        feedbackDiv.innerHTML = `🔄 Resposta ágil registrada! O time demonstrou flexibilidade.<br><strong>Estratégia:</strong><br> ${mudancaText.replace(/\n/g, '<br>')}`;
+        renderBadges();
+        checkAllBadgesAndNotify();
+    });
+
+    // Carregar dados salvos
+    loadFromLocal();
+    // pré-popular textareas se não quiser obrigar a perder dados? mantém vazio pra equipe preencher
+</script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🏆 Ágil Lab | Scrum + MVP Completo (6 features)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1c;
+            color: #e2e8f0;
+            padding: 1rem;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border: 1px solid #facc1540;
+        }
+        .header h1 { font-size: 1.8rem; background: linear-gradient(135deg, #facc15, #38bdf8); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .satisfacao-bar { margin-top: 1rem; background: #334155; border-radius: 2rem; height: 30px; overflow: hidden; max-width: 400px; margin-left: auto; margin-right: auto; }
+        .satisfacao-fill { height: 100%; background: linear-gradient(90deg, #ef4444, #facc15, #22c55e); width: 0%; transition: width 0.5s; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: #0f172a; }
+        .tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .tab-btn { background: #1e293b; border: none; padding: 0.8rem 1.5rem; border-radius: 2rem; color: #cbd5e6; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .tab-btn:hover { background: #334155; color: #facc15; }
+        .tab-btn.active { background: #facc15; color: #0f172a; }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(4px); border-radius: 1.2rem; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid #334155; }
+        .card h2 { color: #facc15; margin-bottom: 1rem; border-left: 3px solid #facc15; padding-left: 0.8rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .backlog-item, .sprint-item { background: #0f172a; border-radius: 1rem; padding: 1rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-left: 4px solid #facc15; }
+        .backlog-item.delivered { opacity: 0.5; border-left-color: #22c55e; }
+        .btn-entregar { background: #22c55e; border: none; border-radius: 2rem; padding: 0.4rem 1rem; font-weight: bold; cursor: pointer; }
+        .btn-prioridade { background: #facc15; border: none; border-radius: 2rem; padding: 0.4rem 1rem; font-weight: bold; cursor: pointer; margin: 0.2rem; }
+        .daily-card { background: #0f172a; border-radius: 1rem; padding: 1rem; margin: 1rem 0; }
+        .app-mock { background: #ffffff; border-radius: 1.5rem; overflow: hidden; color: #1e293b; }
+        .app-header-mock { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; padding: 1rem; text-align: center; }
+        .app-body-mock { padding: 1rem; max-height: 500px; overflow-y: auto; }
+        .produto-item-mock { background: #f8fafc; border-radius: 0.8rem; padding: 0.8rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; }
+        .pedido-item { background: #f1f5f9; border-radius: 0.8rem; padding: 0.8rem; margin-bottom: 0.5rem; }
+        .promo-item { background: #fef3c7; border-radius: 0.8rem; padding: 0.8rem; margin-bottom: 0.5rem; border-left: 4px solid #f97316; }
+        .metrica-card { background: #0f172a; border-radius: 1rem; padding: 1rem; text-align: center; }
+        .metrica-valor { font-size: 2rem; font-weight: bold; color: #facc15; }
+        .feedback-cliente { background: #1e293b; border-radius: 1rem; padding: 1rem; margin-top: 1rem; border-left: 4px solid #f97316; }
+        footer { text-align: center; margin-top: 2rem; padding: 1rem; color: #64748b; font-size: 0.8rem; }
+        button { transition: 0.2s; cursor: pointer; }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-chalkboard-user"></i> Ágil Lab | Scrum Completo</h1>
+        <p>6 features: Busca | Carrinho | Compra | Rastreio | Promoções | Chat</p>
+        <div class="satisfacao-bar"><div class="satisfacao-fill" id="satisfacaoFill">😊 0%</div></div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="backlog"><i class="fas fa-list"></i> 📋 Backlog</button>
+        <button class="tab-btn" data-tab="sprint"><i class="fas fa-running"></i> 🏃‍♂️ Sprint + Daily</button>
+        <button class="tab-btn" data-tab="mvp"><i class="fas fa-mobile-alt"></i> 📱 App do Cliente</button>
+        <button class="tab-btn" data-tab="review"><i class="fas fa-chart-simple"></i> 📊 Review</button>
+        <button class="tab-btn" data-tab="mudancas"><i class="fas fa-exchange-alt"></i> 🔄 Mudanças</button>
+    </div>
+
+    <!-- BACKLOG -->
+    <div id="tab-backlog" class="tab-content active">
+        <div class="card">
+            <h2><i class="fas fa-clipboard-list"></i> Product Backlog</h2>
+            <div id="backlogList"></div>
+            <div class="feedback-cliente"><i class="fas fa-info-circle"></i> ⬆️⬇️ Priorize | ✅ Mova para Sprint</div>
+        </div>
+    </div>
+
+    <!-- SPRINT + DAILY -->
+    <div id="tab-sprint" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-calendar-week"></i> Sprint Backlog</h2>
+            <div id="sprintBacklogList"></div>
+            <h2 style="margin-top:1rem;"><i class="fas fa-coffee"></i> Daily Scrum</h2>
+            <div class="daily-card">
+                <div id="dailyContent">👩‍💻 Ana: "Finalizando feature atual"<br>👨‍💻 Pedro: "Revisando código"<br>👩‍🔧 Mariana: "Testando"</div>
+                <button class="btn-prioridade" id="simularDailyBtn" style="background:#38bdf8;">🔄 Simular Daily</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP DO CLIENTE (MVP COMPLETO) -->
+    <div id="tab-mvp" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-mobile-alt"></i> App do Cliente</h2>
+            <div class="app-mock">
+                <div class="app-header-mock"><h3>🛍️ Varejo Ágil</h3><span id="mvpBadge" style="font-size:0.7rem; background:#facc15; padding:2px 8px; border-radius:20px;">0/6 features</span></div>
+                <div class="app-body-mock" id="mvpBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REVIEW -->
+    <div id="tab-review" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> Sprint Review</h2>
+            <div id="reviewFeatures" class="grid-2"></div>
+            <button class="btn-prioridade" id="realizarReviewBtn" style="background:#facc15;">⭐ Realizar Review</button>
+            <h2 style="margin-top:1rem;">🔄 Retrospectiva</h2>
+            <div class="grid-2">
+                <div class="daily-card">✅ O que deu certo:<br>- Entregamos as features<br>- Daily ajudou</div>
+                <div class="daily-card">🔧 O que melhorar:<br>- Testar mais cedo<br>- Pair programming</div>
+            </div>
+            <button class="btn-prioridade" id="aplicarMelhoriasBtn" style="background:#38bdf8;">🚀 Aplicar melhorias</button>
+        </div>
+    </div>
+
+    <!-- MUDANÇAS -->
+    <div id="tab-mudancas" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-exchange-alt"></i> Mudanças de Requisito</h2>
+            <div class="grid-2">
+                <button class="btn-prioridade" id="pedirChatBtn" style="background:#f97316;">💬 Pedir Chat</button>
+                <button class="btn-prioridade" id="reclamarBtn" style="background:#ef4444;">😠 Cliente insatisfeito</button>
+            </div>
+            <div id="historicoMudancas" class="daily-card" style="margin-top:1rem;"></div>
+        </div>
+    </div>
+    <footer>🎯 Simulador Scrum com 6 features completas | Aprendizado prático</footer>
+</div>
+
+<script>
+    // 6 FEATURES COMPLETAS
+    let features = [
+        { id: 1, nome: "🔍 Busca de produtos", pontos: 5, status: "entregue", prioridade: 1, descricao: "Cliente pode buscar produtos" },
+        { id: 2, nome: "🛒 Carrinho de compras", pontos: 8, status: "backlog", prioridade: 2, descricao: "Adicionar itens ao carrinho" },
+        { id: 3, nome: "💳 Finalizar compra", pontos: 13, status: "backlog", prioridade: 3, descricao: "Checkout e pagamento" },
+        { id: 4, nome: "📦 Rastrear pedido", pontos: 5, status: "backlog", prioridade: 4, descricao: "Acompanhar status do pedido" },
+        { id: 5, nome: "🎁 Promoções personalizadas", pontos: 8, status: "backlog", prioridade: 5, descricao: "Ofertas especiais" },
+        { id: 6, nome: "💬 Chat ao vivo", pontos: 8, status: "backlog", prioridade: 6, descricao: "Atendimento em tempo real" }
+    ];
+    
+    let sprintAtual = 1;
+    let satisfacao = 30;
+    let sprintBacklog = [];
+    let historicoMudancas = [];
+    let dailyDia = 1;
+    
+    // Dados do app
+    let produtos = [
+        { id: 1, nome: "Notebook Gamer", preco: 4999.99 },
+        { id: 2, nome: "Smartphone X10", preco: 2499.99 },
+        { id: 3, nome: "Fone Bluetooth", preco: 199.99 },
+        { id: 4, nome: "Camiseta Estampada", preco: 59.99 }
+    ];
+    let carrinho = [];
+    let pedidos = []; // para rastreio
+    let chatMessages = [{ remetente: "bot", texto: "Olá! Como podemos ajudar?" }];
+    let ultimoIdPedido = 1000;
+    
+    function loadData() {
+        const saved = localStorage.getItem("agil_lab_full");
+        if(saved) {
+            try {
+                const data = JSON.parse(saved);
+                features = data.features || features;
+                sprintAtual = data.sprintAtual || 1;
+                satisfacao = data.satisfacao || 30;
+                sprintBacklog = data.sprintBacklog || [];
+                historicoMudancas = data.historicoMudancas || [];
+                carrinho = data.carrinho || [];
+                pedidos = data.pedidos || [];
+            } catch(e) {}
+        }
+        atualizarTudo();
+    }
+    
+    function saveData() {
+        localStorage.setItem("agil_lab_full", JSON.stringify({ features, sprintAtual, satisfacao, sprintBacklog, historicoMudancas, carrinho, pedidos, chatMessages }));
+    }
+    
+    function atualizarSatisfacaoUI() {
+        const fill = document.getElementById("satisfacaoFill");
+        fill.style.width = satisfacao + "%";
+        fill.innerHTML = satisfacao >= 80 ? "😍 " + satisfacao + "%" : (satisfacao >= 50 ? "😊 " + satisfacao + "%" : (satisfacao >= 25 ? "😐 " + satisfacao + "%" : "😠 " + satisfacao + "%"));
+    }
+    
+    function atualizarTudo() {
+        atualizarSatisfacaoUI();
+        atualizarBacklog();
+        atualizarSprintBacklog();
+        atualizarMVP();
+        atualizarReview();
+        atualizarHistorico();
+        saveData();
+    }
+    
+    function atualizarBacklog() {
+        const container = document.getElementById("backlogList");
+        const backlogItems = features.filter(f => f.status === "backlog").sort((a,b) => a.prioridade - b.prioridade);
+        const entregues = features.filter(f => f.status === "entregue");
+        container.innerHTML = `<div style="margin-bottom:1rem;">✅ Entregues: ${entregues.map(f=>f.nome).join(", ") || "nenhuma"} (${entregues.length}/6)</div>
+        ${backlogItems.map(f => `<div class="backlog-item"><div><strong>${f.nome}</strong> (${f.pontos}pts) - Prioridade ${f.prioridade}</div>
+        <div><button class="btn-prioridade" onclick="moverPrioridade(${f.id},'up')">⬆️</button><button class="btn-prioridade" onclick="moverPrioridade(${f.id},'down')">⬇️</button>
+        <button class="btn-entregar" onclick="moverParaSprint(${f.id})">✅ Desenvolver</button></div></div>`).join("")}
+        ${backlogItems.length === 0 ? "<div style='text-align:center;padding:2rem;'>🎉 Todas features entregues!</div>" : ""}`;
+    }
+    
+    function moverPrioridade(id, dir) {
+        const backlogItems = features.filter(f => f.status === "backlog").sort((a,b) => a.prioridade - b.prioridade);
+        const idx = backlogItems.findIndex(f => f.id === id);
+        if(dir === "up" && idx>0) [backlogItems[idx].prioridade, backlogItems[idx-1].prioridade] = [backlogItems[idx-1].prioridade, backlogItems[idx].prioridade];
+        if(dir === "down" && idx<backlogItems.length-1) [backlogItems[idx].prioridade, backlogItems[idx+1].prioridade] = [backlogItems[idx+1].prioridade, backlogItems[idx].prioridade];
+        features.forEach(f => { if(f.status === "backlog") f.prioridade = backlogItems.find(b=>b.id===f.id)?.prioridade || f.prioridade; });
+        atualizarBacklog();
+        saveData();
+    }
+    
+    function moverParaSprint(id) {
+        const f = features.find(f => f.id === id);
+        if(f && f.status === "backlog") {
+            if(sprintBacklog.length >= 3) { alert("Limite: 3 features por Sprint!"); return; }
+            sprintBacklog.push(id);
+            f.status = "sprint";
+            atualizarBacklog();
+            atualizarSprintBacklog();
+            saveData();
+        }
+    }
+    
+    function atualizarSprintBacklog() {
+        const container = document.getElementById("sprintBacklogList");
+        const sprintFeatures = features.filter(f => sprintBacklog.includes(f.id));
+        container.innerHTML = `<div>🎯 Sprint ${sprintAtual}</div>${sprintFeatures.map(f => `<div class="sprint-item"><div><strong>${f.nome}</strong> (${f.pontos}pts) ${f.status === 'entregue' ? '✅ Entregue' : '⏳ Em dev'}</div>
+        ${f.status !== 'entregue' ? `<button class="btn-entregar" onclick="entregarFeature(${f.id})">✅ Concluir</button>` : ""}</div>`).join("")}
+        ${sprintFeatures.length === 0 ? "<div>Nenhuma feature na Sprint. Volte ao Backlog!</div>" : ""}
+        <button class="btn-prioridade" id="finalizarSprintBtn" style="background:#facc15; width:100%; margin-top:1rem;" onclick="finalizarSprint()">🏁 Finalizar Sprint</button>`;
+    }
+    
+    function entregarFeature(id) {
+        const f = features.find(f => f.id === id);
+        if(f && f.status === "sprint") {
+            f.status = "entregue";
+            satisfacao = Math.min(100, satisfacao + 10);
+            atualizarSatisfacaoUI();
+            atualizarSprintBacklog();
+            atualizarBacklog();
+            atualizarMVP();
+            saveData();
+        }
+    }
+    
+    function finalizarSprint() {
+        const sprintFeatures = features.filter(f => sprintBacklog.includes(f.id));
+        const naoEntregues = sprintFeatures.filter(f => f.status !== "entregue");
+        if(naoEntregues.length > 0) {
+            satisfacao = Math.max(0, satisfacao - 15);
+            alert(`⚠️ ${naoEntregues.length} feature(s) não entregues! -15% satisfação`);
+        } else if(sprintFeatures.length > 0) {
+            satisfacao = Math.min(100, satisfacao + 15);
+            alert(`🎉 Sprint ${sprintAtual} completa! +15% satisfação`);
+        }
+        sprintBacklog.forEach(id => { const f = features.find(f=>f.id===id); if(f && f.status !== "entregue") f.status = "backlog"; });
+        sprintBacklog = [];
+        sprintAtual++;
+        atualizarBacklog();
+        atualizarSprintBacklog();
+        atualizarMVP();
+        atualizarReview();
+        atualizarSatisfacaoUI();
+        saveData();
+    }
+    
+    // ========== MVP COMPLETO ==========
+    function atualizarMVP() {
+        const body = document.getElementById("mvpBody");
+        const entregues = features.filter(f => f.status === "entregue");
+        document.getElementById("mvpBadge").innerHTML = `${entregues.length}/6 features`;
+        
+        const temBusca = entregues.some(f=>f.id===1);
+        const temCarrinho = entregues.some(f=>f.id===2);
+        const temCompra = entregues.some(f=>f.id===3);
+        const temRastreio = entregues.some(f=>f.id===4);
+        const temPromocao = entregues.some(f=>f.id===5);
+        const temChat = entregues.some(f=>f.id===6);
+        
+        let html = `<div style="display:flex; gap:0.5rem; margin-bottom:1rem;"><input type="text" id="mvpSearch" placeholder="Buscar..." style="flex:1; padding:0.5rem; border-radius:2rem; border:1px solid #cbd5e1;">
+        <button id="mvpSearchBtn" style="background:#facc15; border:none; border-radius:2rem; padding:0.5rem 1rem;">Buscar</button></div>`;
+        
+        // Produtos
+        html += `<div id="mvpProdutos"></div>`;
+        
+        // Carrinho
+        if(temCarrinho) html += `<div id="mvpCarrinhoArea" style="margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+            <h4>🛒 Carrinho</h4><div id="mvpCarrinhoItems"></div><div id="mvpCarrinhoTotal"></div>${temCompra ? `<button id="mvpFinalizarBtn" style="background:#22c55e; width:100%; padding:0.5rem; border-radius:2rem;">Finalizar Compra</button>` : "<div style='color:#94a3b8;'>💳 Finalizar compra em breve</div>"}</div>`;
+        
+        // Rastreio
+        if(temRastreio) html += `<div id="mvpRastreioArea" style="margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+            <h4>📦 Meus Pedidos</h4><div id="mvpPedidosList"></div></div>`;
+        
+        // Promoções
+        if(temPromocao) html += `<div id="mvpPromocoesArea" style="margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+            <h4>🎁 Promoções para você</h4><div id="mvpPromocoesList"></div></div>`;
+        
+        // Chat
+        if(temChat) html += `<div style="margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+            <h4>💬 Chat</h4><div id="mvpChatMessages" style="background:#f1f5f9; border-radius:1rem; padding:0.5rem; height:100px; overflow-y:auto;"></div>
+            <div style="display:flex; gap:0.5rem; margin-top:0.5rem;"><input type="text" id="mvpChatInput" style="flex:1; padding:0.5rem; border-radius:2rem;"><button id="mvpChatSendBtn" style="background:#f97316; border:none; border-radius:2rem; padding:0.5rem 1rem;">Enviar</button></div></div>`;
+        
+        body.innerHTML = html;
+        
+        // Renderizar componentes
+        renderizarProdutos();
+        if(temCarrinho) renderizarCarrinho();
+        if(temRastreio) renderizarPedidos();
+        if(temPromocao) renderizarPromocoes();
+        if(temChat) renderizarChat();
+        
+        // Eventos
+        document.getElementById("mvpSearchBtn")?.addEventListener("click", () => renderizarProdutos(document.getElementById("mvpSearch").value));
+        document.getElementById("mvpFinalizarBtn")?.addEventListener("click", finalizarCompra);
+        document.getElementById("mvpChatSendBtn")?.addEventListener("click", enviarChat);
+    }
+    
+    function renderizarProdutos(filtro = "") {
+        const container = document.getElementById("mvpProdutos");
+        if(!container) return;
+        const temCarrinho = features.some(f=>f.id===2 && f.status==="entregue");
+        let filtered = produtos.filter(p => p.nome.toLowerCase().includes(filtro.toLowerCase()));
+        container.innerHTML = filtered.map(p => `<div class="produto-item-mock"><div><strong>${p.nome}</strong><br>R$ ${p.preco.toFixed(2)}</div>
+        <button onclick="adicionarAoCarrinho(${p.id})" ${!temCarrinho ? 'disabled style="opacity:0.5;"' : ""}>${temCarrinho ? "Comprar" : "🔒"}</button></div>`).join("");
+    }
+    
+    function adicionarAoCarrinho(prodId) {
+        const produto = produtos.find(p=>p.id===prodId);
+        if(produto) { carrinho.push(produto); renderizarCarrinho(); saveData(); }
+    }
+    
+    function renderizarCarrinho() {
+        const container = document.getElementById("mvpCarrinhoItems");
+        const total = carrinho.reduce((s,i)=>s+i.preco,0);
+        document.getElementById("mvpCarrinhoTotal").innerHTML = `Total: R$ ${total.toFixed(2)}`;
+        if(container) container.innerHTML = carrinho.length ? carrinho.map(i=>`<div>${i.nome} - R$ ${i.preco.toFixed(2)}</div>`).join("") : "<div>Carrinho vazio</div>";
+    }
+    
+    function finalizarCompra() {
+        if(carrinho.length === 0) { alert("Carrinho vazio!"); return; }
+        const total = carrinho.reduce((s,i)=>s+i.preco,0);
+        const novoPedido = { id: ++ultimoIdPedido, data: new Date().toLocaleString(), total, status: "🟡 Em preparação", itens: [...carrinho] };
+        pedidos.unshift(novoPedido);
+        carrinho = [];
+        renderizarCarrinho();
+        renderizarPedidos();
+        alert(`✅ Pedido #${novoPedido.id} criado! Total: R$ ${total.toFixed(2)}`);
+        saveData();
+    }
+    
+    function renderizarPedidos() {
+        const container = document.getElementById("mvpPedidosList");
+        if(!container) return;
+        if(pedidos.length === 0) { container.innerHTML = "<div>Nenhum pedido ainda</div>"; return; }
+        container.innerHTML = pedidos.map(p => `<div class="pedido-item"><strong>Pedido #${p.id}</strong><br>📅 ${p.data}<br>💰 R$ ${p.total.toFixed(2)}<br>📦 Status: ${p.status}<br><button onclick="atualizarStatus(${p.id})" style="background:#38bdf8; border:none; border-radius:2rem; padding:0.2rem 0.8rem;">↻ Simular atualização</button></div>`).join("");
+    }
+    
+    function atualizarStatus(pedidoId) {
+        const pedido = pedidos.find(p=>p.id===pedidoId);
+        if(pedido) {
+            const statuses = ["🟡 Em preparação", "🚚 Saiu para entrega", "✅ Entregue"];
+            let idx = statuses.indexOf(pedido.status);
+            if(idx < statuses.length-1) pedido.status = statuses[idx+1];
+            else pedido.status = "✅ Entregue";
+            renderizarPedidos();
+            saveData();
+        }
+    }
+    
+    function renderizarPromocoes() {
+        const container = document.getElementById("mvpPromocoesList");
+        if(!container) return;
+        const promos = ["🎉 20% OFF em Notebooks!", "🔥 Leve 2, pague 1 em Fones!", "⭐ Frete grátis acima de R$200", "💎 Acumule pontos dobrados!"];
+        container.innerHTML = promos.map(p => `<div class="promo-item"><i class="fas fa-tag"></i> ${p}</div>`).join("");
+    }
+    
+    function renderizarChat() {
+        const container = document.getElementById("mvpChatMessages");
+        if(container) container.innerHTML = chatMessages.map(m => `<div><strong>${m.remetente === "bot" ? "🤖" : "👤"}:</strong> ${m.texto}</div>`).join("");
+    }
+    
+    function enviarChat() {
+        const input = document.getElementById("mvpChatInput");
+        const msg = input.value.trim();
+        if(msg) {
+            chatMessages.push({ remetente: "user", texto: msg });
+            setTimeout(() => { chatMessages.push({ remetente: "bot", texto: "Obrigado! Em breve atendemos." }); renderizarChat(); saveData(); }, 500);
+            renderizarChat();
+            input.value = "";
+            saveData();
+        }
+    }
+    
+    function atualizarReview() {
+        const container = document.getElementById("reviewFeatures");
+        const entregues = features.filter(f=>f.status==="entregue");
+        container.innerHTML = entregues.map(f => `<div class="metrica-card"><strong>${f.nome}</strong><br>✅ Entregue</div>`).join("");
+        if(entregues.length===0) container.innerHTML = "<div>Nenhuma feature entregue ainda</div>";
+    }
+    
+    function atualizarHistorico() {
+        const container = document.getElementById("historicoMudancas");
+        container.innerHTML = `<strong>📋 Histórico:</strong><br>${historicoMudancas.map(m => `• ${m}`).join("<br>") || "Nenhuma mudança ainda"}`;
+    }
+    
+    function realizarReview() {
+        const entregues = features.filter(f=>f.status==="entregue").length;
+        if(entregues===0) alert("Nenhuma feature para revisar!");
+        else { satisfacao = Math.min(100, satisfacao+5); atualizarSatisfacaoUI(); alert("⭐ Review realizada! +5% satisfação"); saveData(); }
+    }
+    
+    function adicionarMudanca(msg, impacto) {
+        historicoMudancas.unshift(msg);
+        satisfacao = Math.min(100, Math.max(0, satisfacao + impacto));
+        atualizarSatisfacaoUI();
+        atualizarHistorico();
+        saveData();
+    }
+    
+    // Eventos globais
+    window.moverPrioridade = moverPrioridade;
+    window.moverParaSprint = moverParaSprint;
+    window.entregarFeature = entregarFeature;
+    window.finalizarSprint = finalizarSprint;
+    window.adicionarAoCarrinho = adicionarAoCarrinho;
+    window.atualizarStatus = atualizarStatus;
+    
+    document.getElementById("simularDailyBtn")?.addEventListener("click", () => {
+        dailyDia++; const frases = ["👩‍💻 Ana: 'Feature quase pronta!'", "👨‍💻 Pedro: 'Revisão concluída'", "👩‍🔧 Mariana: 'Testes ok'"];
+        document.getElementById("dailyContent").innerHTML = frases.map(f=>f+"<br>").join("");
+    });
+    document.getElementById("realizarReviewBtn")?.addEventListener("click", realizarReview);
+    document.getElementById("aplicarMelhoriasBtn")?.addEventListener("click", () => alert("🚀 Melhorias aplicadas!"));
+    document.getElementById("pedirChatBtn")?.addEventListener("click", () => adicionarMudanca("💬 Cliente pediu CHAT - priorizado!", 5));
+    document.getElementById("reclamarBtn")?.addEventListener("click", () => adicionarMudanca("😠 Cliente insatisfeito com atraso!", -20));
+    
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const tabId = btn.dataset.tab;
+            document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+            btn.classList.add("active");
+            document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+            document.getElementById(`tab-${tabId}`).classList.add("active");
+            if(tabId === "mvp") atualizarMVP();
+        });
+    });
+    
+    loadData();
+</script>
+</body>
+</html>
